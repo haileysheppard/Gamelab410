@@ -4,9 +4,11 @@
 # name of the character.
 
 define m = Character("MC")
+define f = Character("Friend1")
+define s = Character("Síofra")
 
 screen forest_path():
-    add "images/FOREST.jpg":
+    add "images/FOREST.jpg"
     imagemap: 
         ground "images/FOREST.jpg"
         hotspot (242, 199, 2, 0) action Jump("scary") tooltip "Mysterious noises are coming from this area."
@@ -35,12 +37,12 @@ label start:
     call screen forest_path
 
     return
-Label scary:
+#Label scary
     scene scary
     "Ahh so scary..."
     return
 
-Label nothing:
+#Label nothing
     scene nothing
     "Ahh so normal..."
     return
