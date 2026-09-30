@@ -1,48 +1,58 @@
-﻿# The script of the game goes in this file.
-
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
-
-define m = Character("MC")
+﻿define m = Character("MC", image="Test")
+image MC happy = "Test2.png"
+image MC sad = "Test3.png"
 define f = Character("Friend1")
 define s = Character("Síofra")
 
+image scary = "images/scary.jpg"
+image nothing = "images/nothing.jpg"
+
+screen Nothing():
+    imagemap:
+        ground "images/Blank.jpg"
+        hotspot (613, 240, 620, 510) action Jump("dialogue") tooltip "..."
+
+    $ tooltip = GetTooltip()
+    
+    if tooltip:
+        text "[tooltip]" xalign 0.5 yalign 0.75
+
 screen forest_path():
-    add "images/FOREST.jpg"
-    imagemap: 
-        ground "images/FOREST.jpg"
-        hotspot (242, 199, 2, 0) action Jump("scary") tooltip "Mysterious noises are coming from this area."
-        hotspot (378, 172) action Jump ("nothing") tooltip "Nothing of note."
+    imagemap:
+        ground "images/bakery.png"
+        # hover "images/FOREST_hover.jpg"   # optional: shows a highlight on hover
 
-        $ tooltip = GetTooltip()
+        # hotspot (x, y, width, height)
+        hotspot (242, 199, 120, 100) action Jump("scary") tooltip "Mysterious noises are coming from this area."
+        hotspot (378, 172, 120, 100) action Jump("nothing") tooltip "Nothing of note."
 
-        if tooltip:
-            text "[tooltip]" xalign 0.5 yalign 0.75
+    $ tooltip = GetTooltip()
+
+    if tooltip:
+        text "[tooltip]" xalign 0.5 yalign 0.75
 
 # The game starts here.
 
 label start:
+    show MC happy
+    m "..."
+    m "There's nothing here"
+    call screen Nothing
+    m "What is that...?"
 
-    # Show a background. This uses a placeholder by default, but you can
-    # add a file (named either "bg room.png" or "bg room.jpg") to the
-    # images directory to show it.
-    scene FOREST
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named "eileen happy.png" to the images
-    # directory.
 
-    # These display lines of dialogue.
-
-    m "This is a test of the spot selection mechanic."
+label dialogue:
+    show MC sad
+    m "Huh?"
+    m "Where is this...?"
     call screen forest_path
 
-    return
-#Label scary
+label scary:
     scene scary
     "Ahh so scary..."
     return
 
-#Label nothing
+label nothing:
     scene nothing
     "Ahh so normal..."
     return
