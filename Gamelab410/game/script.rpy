@@ -1,10 +1,13 @@
 ﻿define m = Character("MC", image="Test")
 image MC happy = "Test2.png"
 image MC sad = "Test3.png"
-define f = Character("Friend1")
+
+define c = Character("Cordula")
+define e = Character("Emil")
 define s = Character("Síofra")
 
-image scary = "images/scary.jpg"
+image placeholder1 = "images/placeholder1.png"
+image placeholder2 = "images/placeholder2.jpg"
 image nothing = "images/nothing.jpg"
 
 screen Nothing():
@@ -23,7 +26,7 @@ screen forest_path():
         # hover "images/FOREST_hover.jpg"   # optional: shows a highlight on hover
 
         # hotspot (x, y, width, height)
-        hotspot (242, 199, 120, 100) action Jump("scary") tooltip "Mysterious noises are coming from this area."
+        hotspot (242, 199, 120, 100) action Jump("placeholder1") tooltip "Mysterious noises are coming from this area."
         hotspot (378, 172, 120, 100) action Jump("nothing") tooltip "Nothing of note."
 
     $ tooltip = GetTooltip()
@@ -47,11 +50,23 @@ label dialogue:
     m "Where is this...?"
     call screen forest_path
 
-label scary:
-    scene scary
-    "Ahh so scary..."
-    return
+label placeholder1:
+    scene placeholder1
+    menu:
+        "Who should I talk to?"
 
+        "Emil":
+            "Hey Emil"
+
+        "Cordula":
+            $ cordula = "True"
+
+            "Hey Cordula"
+
+    
+label after_placeholder1:
+    "Now what."
+    return
 label nothing:
     scene nothing
     "Ahh so normal..."
