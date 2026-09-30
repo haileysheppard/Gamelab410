@@ -3,7 +3,11 @@ image MC happy = "Test2.png"
 image MC sad = "Test3.png"
 
 define c = Character("Cordula")
+image Edel1 = "Edel.png"
+
 define e = Character("Emil")
+image rean1 = "rean.png"
+
 define s = Character("Síofra")
 
 image placeholder1 = "images/placeholder1.png"
@@ -56,9 +60,11 @@ label placeholder1:
         "Who should I talk to?"
 
         "Emil":
+            show rean1
             "Hey Emil"
 
         "Cordula":
+            show Edel1
             $ cordula = "True"
 
             "Hey Cordula"
@@ -66,7 +72,18 @@ label placeholder1:
     
 label after_placeholder1:
     "Now what."
-    return
+menu: 
+    "Maybe I should go back to the bakery."
+
+    "Go back":
+        call screen forest_path
+    
+    "Stay here":
+        $ stay = "True"
+
+        "Welp I'm done"
+
+return
 label nothing:
     scene nothing
     "Ahh so normal..."
