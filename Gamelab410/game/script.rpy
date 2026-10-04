@@ -1,4 +1,4 @@
-﻿define m = Character("MC", image="Test")
+﻿define m = Character("Eufrid", image="Test")
 image MC happy = "Test2.png"
 image MC sad = "Test3.png"
 
@@ -9,7 +9,6 @@ define e = Character("Emil")
 image rean1 = "rean.png"
 
 define s = Character("Síofra")
-
 image placeholder1 = "images/placeholder1.png"
 image placeholder2 = "images/placeholder2.jpg"
 image nothing = "images/nothing.jpg"
@@ -26,7 +25,7 @@ screen Nothing():
 
 screen forest_path():
     imagemap:
-        ground "images/bakery.png"
+        ground "images/bakery1.png"
         # hover "images/FOREST_hover.jpg"   # optional: shows a highlight on hover
 
         # hotspot (x, y, width, height)
@@ -50,9 +49,13 @@ label start:
 
 label dialogue:
     show MC sad
+
     m "Huh?"
     m "Where is this...?"
+    play music "audio/VillageTest.mp3"
+
     call screen forest_path
+
 
 label placeholder1:
     scene placeholder1
