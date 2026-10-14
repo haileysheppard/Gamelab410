@@ -6,6 +6,7 @@ define s = Character("Síofra")
 image MC happy = "Test2.png"
 image MC sad = "Test3.png"
 image Emil1 = "Emil1.png"
+image Siofra1 = "Siofra.png"
 image bakery1 = "images/BakeryFinal.png"
 image placeholder1 = "images/placeholder1.png"
 image placeholder2 = "images/placeholder2.jpg"
@@ -13,6 +14,7 @@ image nothing = "images/Blank.jpg"
 image town = "images/PLACEHOLDERTOWN.png"
 image start = "images/PlaceholderStart.png"
 image Fountain = "images/Fountain.png"
+image Stalls = "images/placeholderstalls.png"
 
 default visited = set()
 
@@ -99,6 +101,32 @@ m "That's why I came to see you and not anyone else."
 "Cordula playfully shoved me. This type of banter was normal between  us."
 
 
+
+label StayHere:
+    scene Stalls
+    "I went to look at the rest of the festival stalls. I hadn't been able to get a look at any while I was setting up our stall."
+"This year the amount of stalls doubled. It seemed like the mayor really wanted to make sure this year had a big turnout."
+"I heard he had even reached out to foreign vendors, hence why the stall numbers had doubled. I was curious to see what these new vendors had up their sleeve."
+"I moved towards one of the new vendors. When I was preparing I caught a glimpse of this stall. It was full of curiosities I had never seen before." 
+"As I got closer to the stall I noticed the vendor. She was also unlike anything I had seen before." 
+show Siofra1
+"She had ghastly features and sunken in skin. It fit her stall in some way, an odd person for an odd stall."
+"The vendor looked up at me. Seemingly a little irate."
+s "..."
+m "...Hello, I'm Eufrid. I'm also a vendor here. My stall is right down the way."
+"I pointed towards the town center. My family had gotten a decent spot this year, despite the new entries."
+s "I see..."
+"I frowned a bit. It didn't seem like this woman was one for conversation." 
+m "What's your name? I don't think I have seen you around these parts before." 
+"I tried to keep being friendly. I wanted to make sure we left an impression on all the newcomers here, hopefully that meant they would want to return next year."
+s "...Siofra."
+"An interesting name to say the least. I had never heard of such a name before this." 
+m "Well, it's nice to meet you, Siofra. Hopefully, I'll have some free time to check out your stall during the festival."
+"Siofra gave a slight smile."
+s "I hope so as well."
+"The way she smiled frightened me a bit. It reminded me of a rabid horse I had a run in with as a child." 
+"But I wasn't one to judge off of appearances, so I tried to keep that thought out of my mind."
+# have to figure out how to set this as visited/ figure out if want to force players to visit all things 
 
 return
 
