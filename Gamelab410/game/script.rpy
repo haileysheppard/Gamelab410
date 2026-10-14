@@ -204,4 +204,38 @@ label all_viewed:
 label after_chat:
     m "Bye! See you tonight!"
 
-    
+label MeetUp1:
+
+"After all that excitement, it was almost dusk. Which meant it was almost time for my favorite part of the day."
+
+"Cordula, Emil and I had a daily tradition. Each day at dusk we would meet up in the Town Center and spend time together."
+
+"We had been doing this since we were kids. At first it was just an excuse to ditch our chores, but now it had become a tradition."
+
+"As I approached the center, I saw Cordula and Emil both in the distance. It seemed like I was the last to arrive today. Damn." 
+
+show Emil1
+show Siofra1
+
+"Emil walked up to me and pointed an accusatory finger at me."
+e "What took you so long? I was beside myself with worry."
+"He hugged himself. He was trying to look as scared as possible, but I knew his tricks by now."
+
+menu:
+    "I..."
+    "Felt Annoyed":
+        "I gave him a stern glare."
+        e "Woah. I was just playing around. No need to look so upset."
+
+jump MeetUp1A:
+
+    "Played along":
+        $ PlayedAlong = True
+        "I got on my hands and knees and started to beg for forgiveness."
+        m "I am ever so sorry Emil. I can't believe I wasted your precious time."
+        e "Hm... What shall this peasant's punishment be."
+# Fix This
+jump MeetUp1A:
+label MeetUp1A:
+c "Cut it out you two."
+
