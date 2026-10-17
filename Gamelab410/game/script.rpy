@@ -8,15 +8,16 @@ image MC sad = "Test3.png"
 image Emil1 = "Emil1.png"
 image Siofra1 = "Siofra.png"
 image bakery1 = "images/BakeryFinal.png"
-image placeholder1 = "images/placeholder1.png"
-image placeholder2 = "images/placeholder2.jpg"
 image nothing = "images/Blank.jpg"
-image town = "images/PLACEHOLDERTOWN.png"
+image town = "images/placeholderstalls.png"
 image start = "images/PlaceholderStart.png"
 image Fountain = "images/Fountain.png"
 image Stalls = "images/placeholderstalls.png"
 
 default visited = set()
+default did_bakery = False
+default did_cordula = False
+default did_wander = False
 
 screen Nothing():
     imagemap:
@@ -68,20 +69,24 @@ label town:
     "I normally just had a minor vending role but this year they let me participate in the whole set-up."
     m "Now that I have some free time I might as well wander around for a bit."
 
+label town_menu:
+    if did_bakery and did_cordula and did_wander:
+        jump MeetUp1
+
     menu:
         "Now that I had some free time I wanted to"
 
-        "Go to the bakery":
+        "Go to the bakery" if not did_bakery:
+            $ did_bakery = True
             jump bakery
-        
-        "Look for Cordula":
-            $ Search_Cordula = True
+
+        "Look for Cordula" if not did_cordula:
+            $ did_cordula = True
             jump Search_Cordula
 
-        "Wander around the town":
-            $ stayhere = True
+        "Wander around the town" if not did_wander:
+            $ did_wander = True
             jump StayHere
-        
    
 label Search_Cordula:
 "Cordula was a friend I have had ever since my childhood. She moved to Kleinsee when she was eight, and we had been friends ever since."
@@ -100,11 +105,13 @@ c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
 "Cordula playfully shoved me. This type of banter was normal between  us."
 
+jump town_menu
+
 
 
 label StayHere:
-    scene Stalls
-    "I went to look at the rest of the festival stalls. I hadn't been able to get a look at any while I was setting up our stall."
+scene Stalls
+"I went to look at the rest of the festival stalls. I hadn't been able to get a look at any while I was setting up our stall."
 "This year the amount of stalls doubled. It seemed like the mayor really wanted to make sure this year had a big turnout."
 "I heard he had even reached out to foreign vendors, hence why the stall numbers had doubled. I was curious to see what these new vendors had up their sleeve."
 "I moved towards one of the new vendors. When I was preparing I caught a glimpse of this stall. It was full of curiosities I had never seen before." 
@@ -127,8 +134,8 @@ s "I hope so as well."
 "The way she smiled frightened me a bit. It reminded me of a rabid horse I had a run in with as a child." 
 "But I wasn't one to judge off of appearances, so I tried to keep that thought out of my mind."
 # have to figure out how to set this as visited/ figure out if want to force players to visit all things 
+jump town_menu
 
-return
 
 label bakery:
     scene bakery1
@@ -158,7 +165,7 @@ label bakery_loop:
     if len(visited) == 4:
         jump all_viewed
 
-    jump bakery_loop
+jump bakery_loop
 
 label all_viewed:
     m "They don't seem to be coming back anytime soon. I should probably leave."
@@ -180,7 +187,6 @@ label all_viewed:
             e "I guess that makes sense."
             m "Well, I guess I should get a move on. Wouldn't want to distract you."
             e "Don't worry about it! It was nice to see you!"
-            jump after_chat
 
         "None of your business":
             $ NoneOfYourBusiness = True
@@ -190,7 +196,6 @@ label all_viewed:
             m "I was just wandering around. Don't be so dramatic."
             m "I was just about to leave anyways."
             e "Okay... see you later."
-            jump after_chat
 
         "Nothing":
             $ Nothing = True
@@ -199,10 +204,10 @@ label all_viewed:
             e "... I'm just gonna get back to work."
             m "(I guess that means I should leave.)"
 
-            jump after_chat
 
 label after_chat:
     m "Bye! See you tonight!"
+    jump town_menu
 
 label MeetUp1:
 
@@ -214,8 +219,8 @@ label MeetUp1:
 
 "As I approached the center, I saw Cordula and Emil both in the distance. It seemed like I was the last to arrive today. Damn." 
 
-show Emil1
-show Siofra1
+show Emil1 at left
+show Siofra1 at right
 
 "Emil walked up to me and pointed an accusatory finger at me."
 e "What took you so long? I was beside myself with worry."
@@ -227,15 +232,11 @@ menu:
         "I gave him a stern glare."
         e "Woah. I was just playing around. No need to look so upset."
 
-jump MeetUp1A:
-
     "Played along":
         $ PlayedAlong = True
         "I got on my hands and knees and started to beg for forgiveness."
         m "I am ever so sorry Emil. I can't believe I wasted your precious time."
         e "Hm... What shall this peasant's punishment be."
-# Fix This
-jump MeetUp1A:
-label MeetUp1A:
+
 c "Cut it out you two."
 
