@@ -2,17 +2,23 @@
 define c = Character("Cordula")
 define e = Character("Emil")
 define s = Character("Síofra")
+define em = Character("Emil & Eufrid")
+define v = Character ("Man")
 
 image MC happy = "Test2.png"
 image MC sad = "Test3.png"
 image Emil1 = "Emil1.png"
 image Siofra1 = "Siofra.png"
+image Cordula1 = "Emil1.png"
 image bakery1 = "images/BakeryFinal.png"
 image nothing = "images/Blank.jpg"
-image town = "images/placeholderstalls.png"
+image town = "images/Stalls2.png"
 image start = "images/PlaceholderStart.png"
-image Fountain = "images/Fountain.png"
-image Stalls = "images/placeholderstalls.png"
+image Fountain = "images/fountain2.png"
+image Fountain_Night = "images/Fountain_Night.png"
+image Stalls = "images/Stalls2.png"
+image Stalls_Night = "images/Stalls1.png"
+
 
 default visited = set()
 default did_bakery = False
@@ -96,14 +102,27 @@ scene Fountain
 # Add sound effects here. Some for crowd + possibly find a harmonica track.
 "I watched her for a couple of minutes until she reached the end of her song. She then looked up and finally noticed me."
 
-show Emil1
+show Cordula1
 #Emil is here as a placeholder
 c "To what do I owe the please?"
 "Cordula gave me a sly look."
 m "I just finished all my preperations and wanted to see something more exciting."
 c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
-"Cordula playfully shoved me. This type of banter was normal between  us."
+"Cordula gave me a playful shove." 
+c "How did the setup for your parents' stall go?"
+m "It was surprisingly simple. I just had to make sure the main stars of our stall were all front and center. "
+m "For the placement of everything else I just played it by eye."
+c "I can't wait to see it tomorrow. Are you working all the time the whole day tomorrow?"
+m "Unfortunately, yes. I am working from dawn to dusk tomorrow."
+"Cordula frowned." 
+c "Hm... It will at least be exciting. I have already heard talk of visitors arriving."
+m "It will be a lot of work. I just hope I will have some downtime at somepoint."
+c "Again, at least you will be busy. You won't just be standing around all day waiting for a customer to appear."
+m "I suppose that you could look at it that way."
+m "Either way, I have a lot to think about."
+"I started to leave."
+c "See you later tonight!"
 
 jump town_menu
 
@@ -210,7 +229,7 @@ label after_chat:
     jump town_menu
 
 label MeetUp1:
-
+    scene Fountain_Night
 "After all that excitement, it was almost dusk. Which meant it was almost time for my favorite part of the day."
 
 "Cordula, Emil and I had a daily tradition. Each day at dusk we would meet up in the Town Center and spend time together."
@@ -233,10 +252,40 @@ menu:
         e "Woah. I was just playing around. No need to look so upset."
 
     "Played along":
-        $ PlayedAlong = True
         "I got on my hands and knees and started to beg for forgiveness."
         m "I am ever so sorry Emil. I can't believe I wasted your precious time."
         e "Hm... What shall this peasant's punishment be."
 
 c "Cut it out you two."
+# Sad sfx here. 
+em "Sorry Cordula."
+"Cordula's voice cut through our argument. It took us but a second to calm down before Cordula continued."
+
+c "So, did anything interesting happen to either of you today?"
+"I thought for a moment, did anything of note happen today. That woman I met at the stalls came to my mind."
+"I looked toward Emil. He also seemed to be in thought."
+"Before either of us could respond a hysterical voice rang out. We all looked towards the speaker. "
+v "It's all true you know!"
+"The man was slurring his word, he was probably just a visiting drunk."
+v "I know what I saw. There was most definitely something, something demonic, or what not attacking that woman."
+"At this I perked up, maybe there was some merit to this man's rambling."
+"Before I could continue this line of thought someone ushered the man back into the local inn."
+"For a while none of us spoke until Emil finally broke the silence."
+e "I assume we will be seeing a lot more of those types of people during the festival."
+"He tried to play it off as a joke, but the prospect made me worry a bit."
+c "I hope not. Think of the mess that could cause."
+"Emil and Cordula continued to argue about whether or not raving drunks was a good thing or a bad thing."
+"I did not speak up during the conversation, I could not get my mind off of that man."
+"Why would a drunken rant turn into a story like that? There had to be some truth to the story."
+"Emil and Cordula had stopped arguing and were giving me curious looks."
+c "Are you feeling tired? Should we leave it for today?"
+"Cordula gave a concerning look, and looked towards Emil."
+c "Right, Emil?" 
+"Emil was staring off. When he heard Cordula's voice he seemed to remember where he was."
+e "Yeah, I was getting tired too. I think I am going to head back."
+"I agreed with them, and with that we parted for the day."
+label Night:
+    scene black
+
+
 
