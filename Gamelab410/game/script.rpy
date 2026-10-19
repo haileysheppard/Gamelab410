@@ -285,7 +285,43 @@ c "Right, Emil?"
 e "Yeah, I was getting tired too. I think I am going to head back."
 "I agreed with them, and with that we parted for the day."
 label Night:
-    scene black
+scene black
+"I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
+"I fell asleep with little struggle."
+play audio "audio/Wake.mp3"
+# MC bedroom Placeholder in future?
+"I awoke to a wolf howling in the distance."
+"It did not bother me too much, since it was just about time for me to make my way over to the stand."
+"I got dressed for the day and left my home with little fanfare. "
+scene town
+"I left my home in a hurry. As I walked along the empty streets I heard a noise."
+play audio "audio/Growl.mp3"
+"It stopped me in my tracks. I looked around, but failed to see anything out of the ordinary so I continued to make my way to the stand."
+scene Stalls1
+"Since I had prepped everything yesterday I had little to do other than get out a few items that were to be displayed directly on the counter." 
+"After that was complete it was just about time for the first day of the festival to begin."
+    # add bustling sfx
+scene Stalls2
+"The crowds came in little time. I tended to the stall with fervor."
+"Throughout the day I overheard many different conversations."
+menu:
+    "I focused in on talk of"
+
+    "The Lake":
+        "I heard a couple telling a small group of people about an incident that occurred in the lake."
+        "The couple resided on the lake and heard strange splashing noises last night."
+        "The husband went out to investigate and saw an abnormal glow in the water."
+        "As he moved closer he started hearing a melody. It supposedly had been sung in such a beautiful voice that the man could not help but move even closer."
+        "He had almost made it into the water when his wife yelled at him to come back inside."
+        "He immediately complied."
+        return
+
+    "Mysterious Noises in the Streets":
+        $ Noises = True
+        "Nothing yet oops"
+        return
+
+
 
 
 
