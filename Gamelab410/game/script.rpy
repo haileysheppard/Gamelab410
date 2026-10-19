@@ -24,6 +24,8 @@ default visited = set()
 default did_bakery = False
 default did_cordula = False
 default did_wander = False
+default Lake = False
+default Noises = False
 
 screen Nothing():
     imagemap:
@@ -139,7 +141,7 @@ show Siofra1
 "She had ghastly features and sunken in skin. It fit her stall in some way, an odd person for an odd stall."
 "The vendor looked up at me. Seemingly a little irate."
 s "..."
-m "...Hello, I'm Eufrid. I'm also a vendor here. My stall is right down the way."
+m "...Good afternoon, I'm Eufrid. I'm also a vendor here. My stall is right down the way."
 "I pointed towards the town center. My family had gotten a decent spot this year, despite the new entries."
 s "I see..."
 "I frowned a bit. It didn't seem like this woman was one for conversation." 
@@ -191,7 +193,7 @@ label all_viewed:
     play audio "audio/Door.mp3"
     m "?"
     show Emil1
-    e "Hello Eufrid. What are you doing here?"
+    e "Good afternoon Eufrid. What are you doing here?"
     "This is just the person I was looking for."
     "This is Emil. We have known each other since we were kids."
     "He has been working at the bakery since he was fourteen. If he's feeling nice he will sneak Cordula and I some treats."
@@ -239,7 +241,7 @@ label MeetUp1:
 "As I approached the center, I saw Cordula and Emil both in the distance. It seemed like I was the last to arrive today. Damn." 
 
 show Emil1 at left
-show Siofra1 at right
+show Cordula1 at right
 
 "Emil walked up to me and pointed an accusatory finger at me."
 e "What took you so long? I was beside myself with worry."
@@ -304,23 +306,69 @@ scene Stalls1
 scene Stalls2
 "The crowds came in little time. I tended to the stall with fervor."
 "Throughout the day I overheard many different conversations."
+
 menu:
     "I focused in on talk of"
 
     "The Lake":
+        $ Lake = True
         "I heard a couple telling a small group of people about an incident that occurred in the lake."
         "The couple resided on the lake and heard strange splashing noises last night."
         "The husband went out to investigate and saw an abnormal glow in the water."
         "As he moved closer he started hearing a melody. It supposedly had been sung in such a beautiful voice that the man could not help but move even closer."
         "He had almost made it into the water when his wife yelled at him to come back inside."
         "He immediately complied."
-        return
+        
 
     "Mysterious Noises in the Streets":
         $ Noises = True
-        "Nothing yet oops"
-        return
+        "I heard a group of kids talking about noises they heard in the street last night."
+        "One of the kids lives above one of the local shops, and was out late at a friend's house."
+        "On his way back he walked along the main promenade by himself."
+        "As he got closer to his home he started to hear a baby's cry. Worried he started to search around for the source."
+        "He reached an ally that seemed to be where the sound was coming from and searched down it."
+        "There he found nothing, soon after the cries stopped."
+        "With nothing else to do he headed back to his home like he originally planned."
 
+"The rest of the festival went off with little fanfare. We ended up making a record first-day selling."
+"All the day-stalls around me were preparing to close, so I did the same."
+"My energy was all but drained, but I still had to go and meet up with Cordula and Emil."
+
+label Night1:
+scene Fountain_Night
+"When I reached the fountain only Cordula had arrived. She was sitting on the fountain cleaning her harmonica."
+"The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
+show Cordula1
+m "Seems like Emil is the loser today."
+c "Seems like it... Sorry I did not get a chance to stop by your stall today."
+m "It's okay. Were you able to get a lot of tips today."
+"Cordula had been planning on playing at the fountain most of the day, which is probably how she managed to beat me here."
+c "I think I got the most tips I have ever gotten. I made a good choice in bringing out my  harmonica.
+C A lot of the outsiders have never seen something like it, so I was able to garner a great crowd."
+# add sfx here
+"A crash could be heard from the distance. I looked behind me to see Emil, fallen into a bush."
+"It seemed like he had been trying to sneak up on us but had gotten too nosy. He brushed himself off then made his way over to us."
+show Cordula 1 at left
+show Emil1 at right
+
+e "Good evening you two. Having all this fun without me?"
+"Emil tried to play it off like we hadn't seen him in a bush naught but a couple seconds ago."
+c "Eufrid only arrived a couple of minutes ago. We have not had too much time to talk."
+"Emil again tried to act as though he was not listening in on us. "
+e "I see, well now that I am here let us truly begin!"
+e "I am sure you both had as exciting days as myself. I must have made a'hundred loaves of bread."
+"Emil wiped non-existent sweat off of his brow."
+c "I made quite a fair bit of coin today. It seems the novelty of the harmonica is not lost on the tourists."
+e "What about you Eufrid? How'd the stall go?"
+m "We made a record profit! I also overheard some interesting rumours. I was thinking we could explore those tonight."
+"When we were younger, we all used to try and explore anything mysterious that occurred in Kleinsee."
+"Now that we were older, we of course didn't do this very often."
+"But those rumours I heard today, had me intrigued."
+
+    if Noises:
+"TEST TEST TEST"
+    if Lake:
+"SUPER DUPER TEST"
 
 
 
