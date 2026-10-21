@@ -310,6 +310,7 @@ scene Stalls
 "After that was complete it was just about time for the first day of the festival to begin."
     # add bustling sfx
 scene Stalls
+$ renpy.notify("Festival Day 1")
 "The crowds came in little time. I tended to the stall with fervor."
 "Throughout the day I overheard many different conversations."
 
@@ -342,6 +343,7 @@ menu:
 
 label Night1:
 scene Fountain_Night
+$ renpy.notify("Night 1")
 "When I reached the fountain only Cordula had arrived. She was sitting on the fountain cleaning her harmonica."
 "The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
 show Cordula1
@@ -373,6 +375,11 @@ m "We made a record profit! I also overheard some interesting rumours. I was thi
 "But those rumours I heard today, had me intrigued."
 
 if Lake:
+    jump lake_start
+else: 
+    jump street_start
+
+label lake_start:
     "I told Emil and Cordula what I heard about the lake."
     e "Sounds interesting. I can barely remember the last time I visited the lake."
     c "Tis getting quite dark. I should do well to grab a lantern."
@@ -418,6 +425,7 @@ screen lake():
         text "[tooltip]" xalign 0.5 yalign 0.75
 
 label lake_loop:
+    $ renpy.notify("Night 1 Investigation")
     call screen lake
     $ spot = _return
 
@@ -480,6 +488,8 @@ label lake_investigated:
     "As I made my way home I thought back to the voice we heard."
     "It had a cadence to it that I had never heard before. It was almost inhuman."
     jump EndNight1
+
+label street_start:
 if Noises:
     "I told Cordula and Emil what I heard about mysterious noises in the street."
     show Cordula1 at left
@@ -497,6 +507,7 @@ if Noises:
     "We soon reached our destination and began to start our questioning."
 
 label Questioning1:
+    $ renpy.notify("Night 1 Questioning")
     if ElderlyWoman and WorkingMan and YoungVisitor:
         jump EndQuestioning1
 
@@ -559,6 +570,7 @@ label EndQuestioning1:
 
 label EndNight1:
     scene black
+    $ renpy.notify("End of Night 1")
     "With that I reached my home and went to bed."
     "End of Game for now! :D"
     return
