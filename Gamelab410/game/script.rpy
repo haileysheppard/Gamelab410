@@ -124,6 +124,7 @@ show Cordula happy
 c "To what do I owe the pleasure?"
 "Cordula gave me a sly look."
 m "I just finished all my preperations and wanted to see something more exciting."
+show Cordula open
 c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
 "Cordula gave me a playful shove." 
@@ -133,7 +134,7 @@ m "It was surprisingly simple. I just had to make sure the main stars of our sta
 m "For the placement of everything else I just played it by eye."
 c "I can't wait to see it tomorrow. Are you working all the time the whole day tomorrow?"
 m "Unfortunately, yes. I am working from dawn to dusk tomorrow."
-"Cordula frowned." 
+show Cordula frown
 c "Hm... It will at least be exciting. I have already heard talk of visitors arriving."
 m "It will be a lot of work. I just hope I will have some downtime at somepoint."
 c "Again, at least you will be busy. You won't just be standing around all day waiting for a customer to appear."
@@ -141,7 +142,7 @@ m "I suppose that you could look at it that way."
 m "Either way, I have a lot to think about."
 "I started to leave."
 c "See you later tonight!"
-hide Cordula happy
+hide Cordula frown with dissolve
 
 jump town_menu
 
@@ -218,17 +219,20 @@ label all_viewed:
     show Emil sad
     e "Eufrid...?"
     m "Sorry, what were you saying?"
+    show Emil happy
     e "I was just asking you what you are doing here."
     
     menu:
         "How should I respond"
 
         "Just wandering around":
+            show Emil smirk
             e "I guess that makes sense."
             m "Well, I guess I should get a move on. Wouldn't want to distract you."
             e "Don't worry about it! It was nice to see you!"
 
         "None of your business":
+            show Emil grim
             e "What do you mean none of my business!"
             m "I don't think your boss would agree with that."
             e "That's not the point right now. Stop messing around."
@@ -237,15 +241,17 @@ label all_viewed:
             e "Okay... see you later."
 
         "Nothing":
+            show Emil grim
             e "Doesn't seem like nothing. But who am I to judge."
             m "Yeah. Who are you to judge?"
             e "... I'm just gonna get back to work."
+            show Emil sad
             m "(I guess that means I should leave.)"
 
 
 label after_chat:
     m "Bye! See you tonight!"
-    hide Emil happy
+    hide Emil with dissolve
     jump town_menu
 
 label MeetUp1:
@@ -358,26 +364,30 @@ $ renpy.notify("Night 1")
 "The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
 show Cordula happy
 m "Seems like Emil is the loser today."
+show Cordula surprised
 c "Seems like it... Sorry I did not get a chance to stop by your stall today."
 m "It's okay. Were you able to get a lot of tips today?"
 "Cordula had been planning on playing at the fountain most of the day, which is probably how she managed to beat me here."
-c "I think I got the most tips I have ever gotten. I made a good choice in bringing out my  harmonica."
+show Cordula open
+c "I think I got the most tips I have ever gotten. I made a good choice in bringing out my harmonica."
 c "A lot of the outsiders have never seen something like it, so I was able to garner a great crowd."
 # add sfx here
 "A crash could be heard from the distance. I looked behind me to see Emil, fallen into a bush."
 "It seemed like he had been trying to sneak up on us but had gotten too nosy. He brushed himself off then made his way over to us."
-hide Cordula happy
+hide Cordula open
 show Cordula happy at left
-show Emil happy at right
+show Emil sad at right
 
 e "Good evening you two. Having all this fun without me?"
+show Emil smirk
 "Emil tried to play it off like we hadn't seen him in a bush naught but a couple seconds ago."
 c "Eufrid only arrived a couple of minutes ago. We have not had too much time to talk."
-"Emil again tried to act as though he was not listening in on us. "
+"Emil again tried to act as though he was not listening in on us."
 e "I see, well now that I am here let us truly begin!"
 e "I am sure you both had as exciting days as myself. I must have made a'hundred loaves of bread."
 "Emil wiped non-existent sweat off of his brow."
 c "I made quite a fair bit of coin today. It seems the novelty of the harmonica is not lost on the tourists."
+show Emil happy
 e "What about you Eufrid? How'd the stall go?"
 m "We made a record profit! I also overheard some interesting rumours. I was thinking we could explore those tonight."
 "When we were younger, we all used to try and explore anything mysterious that occurred in Kleinsee."
@@ -393,7 +403,7 @@ label lake_start:
     "I told Emil and Cordula what I heard about the lake."
     e "Sounds interesting. I can barely remember the last time I visited the lake."
     c "Tis getting quite dark. I should do well to grab a lantern."
-    hide Cordula happy
+    hide Cordula happy 
     hide Emil happy
     "Cordula went towards her home. Leaving Emil and I alone for but a couple of minutes."
     "We casually spoke about what else occurred in our respective days."
@@ -406,13 +416,15 @@ label lake:
 "This was the first time I had seen the lake at night since I was a child."
 "There used to be a festival that took place near the lake, but ten years ago they stopped doing it."
 "I was still young then, so I did not quite know the reason why. Even now I never searched for an answer."
-show Emil happy
+show Emil grim
 e "Wow, the lake is a little eerie at night, ain't it?"
 "Emil broke the silence, his voice shaking a bit. He had never been great with the night, even now as an adult."
 "Though, I would tend to agree with what he said. There was a certain vastness to lakes in the dark." 
 hide Emil happy 
 show Cordula happy at left
 show Emil happy at right
+
+#NOte to SELF CONTINUE ADDING EXPRESSIONS AFTER THIS POINT!!!!
 
 c "Let us investigate this as quickly as possible. We all still have to work tomorrow."
 "Wasting time was never Cordula's forte. With that we got to work."
