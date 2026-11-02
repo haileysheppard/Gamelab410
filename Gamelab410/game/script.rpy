@@ -129,7 +129,8 @@ m "I just finished all my preperations and wanted to see something more exciting
 show Cordula open
 c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
-vpunch "Cordula gave me a playful shove." 
+show Cordula open with vpunch
+"Cordula gave me a playful shove." 
 #possibly add animation here. 
 c "How did the setup for your parents' stall go?"
 m "It was surprisingly simple. I just had to make sure the main stars of our stall were all front and center. "
@@ -779,6 +780,16 @@ label Fountain_Loop:
 
 jump Fountain_Loop
 label Night2:
+    $ renpy.notify("Night 2")
 "I felt a tap upon my shoulder and turned around to see Emil."
 show Emil smirk
+e "The party has arrived."
+show Emil smirk with vpunch 
+"I shoved Emil off my shoulder. He cried out in faux pain. I hadn't pushed him that hard..."
+"I gave him an annoyed glare then burst out laughing."
+show Emil sad
+"Emil rubbed his shoulder."
+show Emil grim
+e "That really hurt you know?"
+
 return
