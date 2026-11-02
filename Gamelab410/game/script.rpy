@@ -1,7 +1,7 @@
 ﻿define m = Character("Eufrid")
 define c = Character("Cordula")
 define e = Character("Emil")
-define s = Character("Síofra")
+define s = Character("Siofra")
 define em = Character("Emil & Eufrid")
 define v = Character ("Man")
 define ow = Character ("Old Woman")
@@ -9,15 +9,16 @@ define t = Character ("Visitor")
 
 image Emil happy = "Emil.png"
 image Emil sad = "EmilSad.png"
-# image Emil smirk = "EmilSmirk.png"
-# image Emil grim = "EmilGrim.png"
+image Emil smirk = "EmilSmirk.png"
+image Emil grim = "EmilGrim.png"
 
-image Siofra1 = "Siofra.png"
+image Siofra = "Siofra.png"
+image Siofra open = "SiofraOpen.png"
 
 image Cordula happy = "Cordula1.png"
-# image Cordula surprised = "CordulaSurprised.png"
-# image Cordula open = "CordulaOpen.png"
-# image Cordula frown = "CordulaFrown.png"
+image Cordula surprised = "CordulaSurprised.png"
+image Cordula open = "CordulaOpen.png"
+image Cordula frown = "CordulaFrown.png"
 
 image bakery1 = "images/BakeryFinal.png"
 image nothing = "images/Blank.jpg"
@@ -28,6 +29,7 @@ image Fountain_Night = "images/Fountain1.png"
 image Stalls = "images/Stalls2.png"
 image Stalls_Night = "images/Stalls1.png"
 image Lake = "images/Lake1.png"
+image Forest = "images/Forest.png"
 
 default visited = set()
 default investigated = set()
@@ -85,7 +87,7 @@ label town:
     scene town
     "The year was 18xx. The town of Kleinsee was busy preparing for its biggest event of the year. The PLACEHOLDER Festival."
     "The Festival brought in guests from all across the country."
-    "The PLACEHOLDER Festival was a yearly event that took place over the course of three days. It was full of local foods and fun."
+    "The Mid-Autumn Festival was a yearly event that took place over the course of three days. It was full of local foods and fun."
     "On the final day, there is a large dance that involves both the townsfolk and any visitors. That was what made the final day the most popular."
 
     m "And with that preparations for tomorrow are complete!"
@@ -127,7 +129,7 @@ m "I just finished all my preperations and wanted to see something more exciting
 show Cordula open
 c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
-"Cordula gave me a playful shove." 
+vpunch "Cordula gave me a playful shove." 
 #possibly add animation here. 
 c "How did the setup for your parents' stall go?"
 m "It was surprisingly simple. I just had to make sure the main stars of our stall were all front and center. "
@@ -155,27 +157,32 @@ scene Stalls
 "I heard he had even reached out to foreign vendors, hence why the stall numbers had doubled. I was curious to see what these new vendors had up their sleeve."
 "I moved towards one of the new vendors. When I was preparing I caught a glimpse of this stall. It was full of curiosities such that I had never seen before." 
 "As I got closer to the stall I noticed the vendor. She was also unlike anything I had seen before." 
-show Siofra1
+show Siofra
 "She had ghastly features and sunken in skin. I could smell a bit of a stale odor coming from her. It fit her stall in some way, an odd person for an odd stall."
 "The vendor looked up at me and I felt a chill run through my body. Seemingly a little irate."
 s "..."
 m "...Good afternoon, I'm Eufrid. I'm also a vendor here. My stall is right down the way."
 "I pointed towards the town center. My family had gotten a decent spot this year, despite all the new entries."
+show Siofra open
 s "I see..."
 "I frowned a bit. It didn't seem like this woman was one for conversation." 
+show Siofra
 m "What's your name? I don't think I have seen you around these parts before." 
 "I tried to keep being friendly. I wanted to make sure we left an impression on all the newcomers here, hopefully that meant they would want to return next year."
+show Siofra open
 s "...Siofra."
+show Siofra
 "An interesting name to say the least. I had never heard of such a name before this." 
 m "Well, tis nice to meet you, Siofra. Hopefully, I'll have some free time to check out your stall during the festival."
 "Siofra gave a slight smile."
+show Siofra open
 s "I hope so as well."
-hide Siofra1
+hide Siofra open
 "The way she smiled frightened me a bit. It reminded me of a rabid horse I had a run in with as a child." 
 "But I wasn't one to judge off of appearances, so I tried to keep that thought out of my mind."
-# have to figure out how to set this as visited/ figure out if want to force players to visit all things 
-jump town_menu
+# See if players like openish mouth for each time character is speaking. 
 
+jump town_menu
 
 label bakery:
     scene bakery1
@@ -185,20 +192,20 @@ label bakery_loop:
     $ spot = _return
 
     if spot == "Bread":
-        m "Wow, it looks like they are prepping a lot."
-        m "I guess it makes sense, the festival starts tomorrow..."
-        m "Maybe I should've done more prep..."
+        m "{i}Wow, it looks like they are prepping a lot.{/i}"
+        m "{i}I guess it makes sense, the festival starts tomorrow...{/i}"
+        m "{i}Maybe I should've done more prep...{/i}"
 
     elif spot == "Jars":
-        m "I see these jars everyday yet I still don't know what they are for."
+        m "{i}I see these jars everyday yet I still don't know what they are for.{/i}"
 
     elif spot == "Pastries":
-        m "Wow, that smells divine."
-        m "I wonder if they could sneak me a piece..."
+        m "{i}Wow, that smells divine.{/i}"
+        m "{i}I wonder if they could sneak me a piece...{/i}"
 
     elif spot == "FreshBread":
-        m "Looks freshly made."
-        m "I wonder if they made it."
+        m "{i}Looks freshly made.{/i}"
+        m "{i}I wonder if they made it.{/i}"
 
     $ visited.add(spot)
 
@@ -208,7 +215,7 @@ label bakery_loop:
 jump bakery_loop
 
 label all_viewed:
-    m "They don't seem to be coming back anytime soon. I should probably leave."
+    m "{i}They don't seem to be coming back anytime soon. I should probably leave.{/i}"
     play audio "audio/Door.mp3"
     m "?"
     show Emil happy
@@ -244,9 +251,9 @@ label all_viewed:
             show Emil grim
             e "Doesn't seem like nothing. But who am I to judge."
             m "Yeah. Who are you to judge?"
-            e "... I'm just gonna get back to work."
             show Emil sad
-            m "(I guess that means I should leave.)"
+            e "... I'm just gonna get back to work."
+            m "{i}I guess that means I should leave.{/i}"
 
 
 label after_chat:
@@ -265,6 +272,7 @@ show Emil happy at left
 show Cordula happy at right
 
 "Emil walked up to me and pointed an accusatory finger at me."
+show Emil smirk
 e "What took you so long? I was beside myself with worry."
 "He hugged himself. He was trying to look as scared as possible, but I knew his tricks by now."
 
@@ -278,16 +286,18 @@ menu:
         "I got on my hands and knees and started to beg for forgiveness."
         m "I am ever so sorry Emil. I can't believe I wasted your precious time."
         e "Hm... What shall this peasant's punishment be."
-
+show Cordula frown
 c "Cut it out you two."
-# Sad sfx here. 
+# Sad sfx here. Possibly
 em "Sorry Cordula."
 "Cordula's voice cut through our argument. It took us but a second to calm down before Cordula continued."
-
+show Cordula open
 c "So, did anything interesting happen to either of you today?"
 "I thought for a moment, did anything of note happen today. That woman I met at the stalls came to my mind."
 "I looked toward Emil. He also seemed to be in thought."
 "Before either of us could respond a hysterical voice rang out. We all looked towards the speaker. "
+show Cordula surprised
+show Emil grim
 v "'Tis all true you know!"
 "The man was slurring his words and was flailing about, he was probably just a visiting drunk."
 v "I know what I saw. There was most definitely something, something demonic, or what not attacking that woman."
@@ -296,17 +306,24 @@ v "I know what I saw. There was most definitely something, something demonic, or
 "For a while none of us spoke until Emil finally broke the silence."
 e "I assume we will be seeing a lot more of those types of people during the festival."
 "He tried to play it off as a joke, but the prospect made me worry a bit."
+show Emil happy
+show Cordula open
 c "I hope not. Think of the mess that could cause."
 "Emil and Cordula continued to argue about whether or not raving drunks was a good thing or a bad thing."
 "I did not speak up during the conversation, I could not get my mind off of that man."
 "Why would a drunken rant turn into a story like that? There had to be some truth to the story."
 "Emil and Cordula had stopped arguing and were giving me curious looks."
+show Cordula frown
 c "Are you feeling tired? Should we leave it for today?"
 "Cordula gave a concerning look, and looked towards Emil."
 c "Right, Emil?" 
 "Emil was staring off. When he heard Cordula's voice he seemed to remember where he was."
+show Emil happy
 e "Yeah, I was getting tired too. I think I am going to head back."
 "I agreed with them, and with that we parted for the day."
+
+hide Emil
+hide Cordula
 label Night:
 scene black
 "I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
@@ -374,13 +391,13 @@ c "A lot of the outsiders have never seen something like it, so I was able to ga
 # add sfx here
 "A crash could be heard from the distance. I looked behind me to see Emil, fallen into a bush."
 "It seemed like he had been trying to sneak up on us but had gotten too nosy. He brushed himself off then made his way over to us."
-hide Cordula open
 show Cordula happy at left
 show Emil sad at right
 
 e "Good evening you two. Having all this fun without me?"
 show Emil smirk
 "Emil tried to play it off like we hadn't seen him in a bush naught but a couple seconds ago."
+show Cordula surprised
 c "Eufrid only arrived a couple of minutes ago. We have not had too much time to talk."
 "Emil again tried to act as though he was not listening in on us."
 e "I see, well now that I am here let us truly begin!"
@@ -401,15 +418,22 @@ else:
 
 label lake_start:
     "I told Emil and Cordula what I heard about the lake."
+    show Emil smirk
     e "Sounds interesting. I can barely remember the last time I visited the lake."
-    c "Tis getting quite dark. I should do well to grab a lantern."
-    hide Cordula happy 
-    hide Emil happy
+    show Cordula open
+    c "'Tis getting quite dark. I should do well to grab a lantern."
+    hide Cordula 
+    hide Emil
+
     "Cordula went towards her home. Leaving Emil and I alone for but a couple of minutes."
     "We casually spoke about what else occurred in our respective days."
     "It did not take long for Cordula to return. Her home was located next to the chapel in town, not too far at all from the fountain."
     scene Stalls_Night
     "We went towards the lake with Cordula's lamp lighting our way, passing by the now empty stalls as walked."
+    "We had to walk through the forest to reach the lakeshore."
+    scene Forest
+    "As a child, I had always been afraid of the forest. I eventually got over that fear, but still found it frightening to walk alone at night in there."
+    "Luckily I wasn't alone tonight."
     "Eventually, we reached the shore of the lake."
 label lake:
     scene Lake
@@ -424,7 +448,6 @@ hide Emil happy
 show Cordula happy at left
 show Emil happy at right
 
-#NOte to SELF CONTINUE ADDING EXPRESSIONS AFTER THIS POINT!!!!
 
 c "Let us investigate this as quickly as possible. We all still have to work tomorrow."
 "Wasting time was never Cordula's forte. With that we got to work."
@@ -458,19 +481,20 @@ label lake_loop:
     elif spot == "Forest":
         show Emil happy
         e "The forest looks so small from this view." 
-        m ""
-        hide Emil happy
+        m "It hardly even looks like a forest. The trees look like sticks."
+        hide Emil
         "It's too faraway to see anything of note from the forest."
         
     elif spot == "Glow":
         "... What is that in the distance. I didn't see it a second ago." 
         # add scary singing here. 
-        show Cordula happy
+        show Cordula surprised
         c "Do you two hear that?"
         "A faint singing could be heard coming from the lake. I was unable to parse out what exactly was being sung."
+        show Cordula frown
         "Emil tried to speak but Cordula shushed him before he could get out what he wanted to say."
         "We all stayed quite, listening to the singing. After a couple of minutes it faded, and with that the glow also faded."
-        hide Cordula happy
+        hide Cordula
 
     $ investigated.add(spot)
 
@@ -481,22 +505,24 @@ jump lake_loop
 
 label lake_investigated:
     m "I think we looked at everything around here. Should we start heading back?"
-    show Cordula happy
+    show Cordula open
     c "Yes, it is getting quite late."
     # consider having a forest background or something. forest pathway?
-    hide Cordula happy
-    scene black
+    hide Cordula
+    scene Forest
     "We made our way back towards the town."
     scene Stalls_Night
     "Once we arrived it took a while for anyone to speak of the glow we saw, but eventually Cordula brought it up."
-    show Cordula happy at left
+    show Cordula open at left
     show Emil happy at right 
     c "We are all in agreement that what we saw today was the same phenomenon as what Eufrid heard about today, right?"
+    show Emil grim
     e "But none of us were drawn to the water. Or at least I was not. Were you two at all?"
+    show Cordula frown
     c "Not particularly, no."
     m "Nor, I"
-    hide Emil happy
-    hide Cordula happy
+    hide Emil
+    hide Cordula
     "We walked in silence for the rest of the journey. Everyone was still contemplating what that glow meant."
     "We all separated for the night. We didn't have time to think about the implications, we all had to work tomorrow." 
     "As I made my way home I thought back to the voice we heard."
@@ -506,15 +532,17 @@ label lake_investigated:
 label street_start:
 if Noises:
     "I told Cordula and Emil what I heard about mysterious noises in the street."
-    show Cordula happy at left
-    show Emil happy at right
+    show Cordula surprised at left
+    show Emil smirk at right
     c "Sounds intriguing. I was unable to hear such a noise last night though."
     "Cordula lived next to the local chapel. It was also located near the main square."
+    show Cordula open
     c "Still I think we should try and investigate. What do you all think?"
+    show Emil grim
     e "I see no reason not to. It is too early to go to bed quite yet."
     m "I agree, I am rather curious about these noises. It could be just a kid's ramblings, or it could be something much deeper than that."
-    hide Emil happy
-    hide Cordula happy
+    hide Emil
+    hide Cordula
     "With that we went off to the town to question other residents and visitors."
     "Gas lamps lined the streets, illuminating the night."
     "They had only been installed recently, most likely to help this year's festival."
@@ -534,27 +562,29 @@ label Questioning1:
             m "Good evening, we were just wondering if you heard any strange noises last night?"
             ow "The only thing I heard last night was my worthless husband's ramblings."
             "I flinched a bit. I didn't expect her to be so honest about that type of thing. Emil started to whisper to me."
-            show Emil happy
+            show Emil grim
             e "I do not think she has any information about this. She seems too focused on her personal life."
             "I whispered back."
             m "It certainly seems that way."
-            hide Emil happy
+            hide Emil
             jump Questioning1
 
         "Working Man" if not WorkingMan:
             $ WorkingMan = True
-            show Cordula happy
+            show Cordula surprised
             "Cordula seemed to recognize this man, so she took the initiative."
+            show Cordula open
             c "Good evening sir, would you mind if we spoke for a moment?"
             v "I do not see why not? What is the matter?"
             "Cordula seemed to have this handled, so I elected to let her converse with this man."
             c "Last night, did you hear anything out of the ordinary?"
-            v "Last night I was working at the Inn all night. I was a welcomer for all the new guests." 
+            v "I was working at the Inn all night. I was a welcomer for all the new guests." 
             v "I personally did not hear anything but I heard talk from guests about a strange voice near the entrance of town." 
+            show Cordula frown
             "We all gave each other looks. This was the type of information we were looking for. The man continued."
             v "From what I understand it sounded like a young woman, but the voice was strained and raspy."
             v "Quite a frightening tale if you ask me."
-            hide Cordula happy
+            hide Cordula
             "Cordula bid the man farewell."
             jump Questioning1
 
@@ -563,16 +593,19 @@ label Questioning1:
             "Emil walked up to a young woman. She seemed to be from out of town, or at least she had an air to her like she was." 
             show Emil happy
             e "How do you do?"
+            show Emil smirk
             "He attempted to put on a suave act. Cordula and I shared a knowing look."
             "The traveler seemed surprised by Emil's attitude. But none the less spoke with him."
-            t "I am doing quite fine, thank you. This town is such a beauty."
+            t "I am doing quite fine, thank you. This town is such a beautiful place."
             "Emil conversed with the woman for a considerable amount of time." 
+            show Emil happy
             "After an unquantifiable amount of time Emil finally asked the woman about the noises."
             t "I did hear something strange on the way back to the Inn last night."
             t "It sounded like a combination of cuckoo and a goat. It was quite a thing to hear late at night."
             t "It gave me a fright, so I hurried back to the Inn."
+            show Emil grim
             e "I see, that must have been hard for you."
-            hide Emil happy
+            hide Emil
             "Emil went back to sweet talking the woman while Cordula and I thought of what to do next." 
             jump Questioning1
 
@@ -597,11 +630,13 @@ label EndNight1:
 label lake_morn2:
     "This time it was unlike a wolf and instead sounding more like a loud splash."
     "My family's home was a ways away from the lake, so I found it rather odd."
+    # add noise here
     jump morn2
 
 label street_morn2:
     "This time it was unlike a wolf and instead sounding more like a baby crying."
     "My family's home was quite separated from the rest of town, so I found it rather odd to hear a baby."
+    # add noise here
     jump morn2
 
 label morn2:
@@ -644,5 +679,106 @@ menu:
         "Late last night, their neighbor gave birth to a healthy baby boy."
         jump rumors2
 label EndRumors2:
-    "This is the current end of our game!"
+    "After that lull, the crowds came back in full force."
+    "Throughout the rest of my time working the stall I didn't have any more strange encounters"
+    "I was able to sell even more products than the prior day, so I ended the day rather cheerful."
+    "Soon the end of the day had come and I started to stow away my products. With my head under the table I heard a voice calling me."
+    "I went to greet the stranger and hit my head on the table as I arose."
+    m "Ouch..."
+
+s "Are you quite alright?"
+show Siofra open
+"It was then that I saw her, the strange woman I had met prior. Siofra."
+m "I'm fine. Shouldn't leave a bump or anything. Did you need something?"
+s "I just wanted to wish you well for the rest of the festival."
+"She then reached for something out of her pocket. She held up a small bag and plopped it on the table."
+s "Here. For you."
+"I gave her a befuddled look."
+show Siofra
+m "Why are you giving me this..."
+"I went to inspect the bag. Inside I found small marbles. They had a beautiful sheen to them unlike anything I had ever seen before."
+m "Bag of marbles?"
+"I hadn't played with such a thing since I was a kid. It felt a little odd to be given something so suddenly, and by a stranger no less." 
+show Siofra open
+s "I thought you might need them later, they're very nice marbles, see?"
+show Siofra
+"I wasn't the type to turn down a gift so I pocketed the marbles."
+m "Thank you? If you want you can stop by the stall tomorrow, I may be able to give you something in return."
+"I figured once the festival was over we would have some things left over. I could find a little something to give to Siofra."
+show Siofra open
+s "You don't need to do all that. Think nothing of this gift." 
+hide Siofra
+"Before I could get another word Siofra turned around and left with great haste."
+"The encounter left a strange taste in my mouth. I didn't know what to make of it."
+
+label Fountain_Night2:
+    scene Fountain_Night
+$ renpy.notify("Night 2")
+
+"I was the first one at the fountain tonight. I went to lean against the fountain."
+menu: 
+    "While waiting I..."
+    
+    "Pulled Out the Marble Bag":
+        $ Marble = True
+        "I pulled one of the marbles out of the bag and took a closer look at it."
+        "All the marbles were blue with swirls of different colors in them."
+        "They were honestly quite beautiful. But I couldn't get Siofra's words out of my mind."
+        "Why would I need these?"
+        jump Night2
+    "Checked the Stall Ledger":
+        $Ledger = True
+        "I pulled out the ledger from today and reviewed how much we sold."
+        "Apparently our most sold product today was hairpins. I knew something like that would be a success!"
+        m "{i}My father originally didn't want to see something targeted towards women but I convinced him that the market was large enough.{/i}"
+        m "{i}I'm happy I was proven correct.{/i}" 
+        jump Night2
+
+    "Looked Around":
+        $LookedAround = True
+        "I decided to search around while I wait."
+        jump FountainInvestigate
+
+default investigated2 = set()
+
+label FountainInvestigate:
+screen FountainInvest():
+    imagemap:
+        ground ("images/Fountain1.png")
+        hotspot (1418, 303, 298, 282) action Return("Cat") tooltip "???"
+        hotspot (618, 167, 704, 503) action Return ("Fountain_") tooltip "Fountain"
+        hotspot (200, 0, 193, 380) action Return ("Alley") tooltip "Alley"
+
+    $ tooltip = GetTooltip()
+    if tooltip:
+        text "[tooltip]" xalign 0.5 yalign 0.75
+
+label Fountain_Loop:
+    $ renpy.notify("Night 2 Investigation")
+    call screen FountainInvest
+    $ spot = _return
+
+    if spot == "Cat":
+        "I peaked into the bushes."
+        play audio "audio/Meow.mp3"
+        "A cat jumped out and sauntered away."
+        "{i}Probably someone's pet. They should try to be responsible with it.{/i}"
+
+    elif spot == "Fountain_":
+        "This fountain has been here for as long as I have been alive."
+        "It was made to commemerate some famous person from our village. I can never remember their name though."  
+
+    elif spot == "Alley":
+        "I glanced down the alley."
+        "It smelt of rotten eggs. Someone must of just dumped their garbage."
+
+    $ investigated2.add(spot)
+
+    if len(investigated2) == 3:
+        jump Night2
+
+jump Fountain_Loop
+label Night2:
+"I felt a tap upon my shoulder and turned around to see Emil."
+show Emil smirk
 return
