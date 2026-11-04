@@ -44,6 +44,7 @@ default YoungVisitor = False
 default Second = False
 default Lake2 = False
 default Noises2 = False
+default investigated2 = set()
 
 screen Nothing():
     imagemap:
@@ -330,6 +331,7 @@ scene black
 "I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
 "I fell asleep with little struggle."
 play audio "audio/Wake.mp3"
+$ renpy.notify("Start of Day 1")
 # MC bedroom Placeholder in future?
 # Here is where I stopped editing for a bit. 
 "I awoke to a wolf howling in the distance."
@@ -683,6 +685,7 @@ label EndRumors2:
     "After that lull, the crowds came back in full force."
     "Throughout the rest of my time working the stall I didn't have any more strange encounters"
     "I was able to sell even more products than the prior day, so I ended the day rather cheerful."
+    scene Stalls_Night
     "Soon the end of the day had come and I started to stow away my products. With my head under the table I heard a voice calling me."
     "I went to greet the stranger and hit my head on the table as I arose."
     m "Ouch..."
@@ -740,7 +743,6 @@ menu:
         "I decided to search around while I wait."
         jump FountainInvestigate
 
-default investigated2 = set()
 
 label FountainInvestigate:
 screen FountainInvest():
@@ -791,5 +793,86 @@ show Emil sad
 "Emil rubbed his shoulder."
 show Emil grim
 e "That really hurt you know?"
+"I ignored his outburst."
+m "Have you seen Cordula?" 
+show Emil happy
+e "I ran into her on the way here. She told me she would be a little late."
+"We ended up waiting for Cordula for another fifteen minutes, chatting all the while."
+"Soon I saw Cordula lightly jogging towards us from a distance."
+show Emil smirk at right
+show Cordula surprised at left
+c "Sorry for my tardiness."
+"She said out of breath. She leaned over, trying to recover."
+m "It's okay. It wasn't too long."
+show Emil happy
+e "Yeah."
+show Cordula happy
+"With that we got to discussing our days."
+"I told them about what I heard today"
+if Lake2:
+    m "This morning a farmer found that one of his cows had drowned to death."
+    show Emil grim
+    e "I heard about that as well. It was quite a gruesome sight."
+    show Cordula surprised
+    c "Sounds like it."
+    
+    
+else:
+    m "Last night, someone in town gave birth."
+    show Cordula surprised
+    c "That's pretty rare."
+    "Kleinsee was an aging town. It was rare for someone new to be born or for someone new to move in."
+    "I think one of the main reasons for this year's festival being so big was to raise our population."
+    
+"I moved to sit down upon the fountain. In doing so I felt the bag of marbles rattle in my pocket."
+"I had almost forgotten they were there. I pulled them out of my pocket and showed Cordula and Emil."
+m "One of the visiting vendors also gave me this today."
+show Cordula open
+c "What is it?"
+"I opened the bag and Cordula looked inside."
+show Emil happy
+e "Wait, let me get a look too!" 
+"..."
+show Emil sad
+e "Huh. So she just gave you a bag of marbles?"
+m "Yes, unprompted too. I found it a little odd..."
+show Cordula happy
+c "Maybe she was just trying to be polite, she is an outsider to this town. It could be normal where she is from."
+"That made enough sense to me. I hadn't seen much outside of Kleinsee so who knows what types of cultures are out there."
+show Emil grim
+e "What was her name?"
+m "Siofra. I think it's a foreign name."
+"Emil took a step back."
+show Emil grim with vpunch
+e "That's that weird, scary looking lady, right?!"
+show Cordula frown
+c "No need to yell"
+"Cordula glared at Emil."
+show Cordula open
+c "Some people are probably trying to sleep at this hour. I don't want to upset anyone."
+show Emil sad
+e "Sorry, I was just a little surprised."
+e "I heard rumors about that lady. I heard she came here just to curse this town."
+show Cordula surprised
+c "And where did you hear that from?"
+e "... The tavern."
+m "That was just some local drunks ravings! He probably just doesn't like outsiders!"
+show Emil grim
+e "That could be true... But still it's a worrying rumor right?"
+show Cordula open
+c "If you believe everything you hear I guess you could say that..."
+m "I find it a little offensive that you would believe something like that so easily."
+"I moved over to Emil and flicked his forehead."
+show Emil sad with vpunch
+e "Ouch! What was that for."
+m "For believing something so easily. The whole point of this festival is to show our town to the world."
+m "And here you are trying to tell us that a visitor is doing something nefarious. With no proof, might I add."
+hide Emil
+hide Cordula
+"We continued to berate Emil for a couple more minutes."
+"After that we went our seperate ways."
+scene black
+$ renpy.notify("End of Night 2")
 
+# For day 3 deaths and such have Cordula go to bakery at night!!!
 return
