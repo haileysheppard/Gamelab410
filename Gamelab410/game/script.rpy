@@ -1,4 +1,8 @@
-﻿define m = Character("Eufrid")
+﻿define m = Character("Eufrid", callback=make_blips({
+    "talk": "audio/SFX_Vox_Cordula_Talk_P01.mp3",
+    "yell": "audio/SFX_Vox_Cordula_Yell_P01.wav"
+}))
+
 define c = Character("Cordula")
 define e = Character("Emil")
 define s = Character("Siofra")
@@ -68,6 +72,7 @@ screen forest_path():
         text "[tooltip]" xalign 0.5 yalign 0.75
 
 label start:
+    play sound "audio/SFX_Vox_Cordula_Talk_P01.mp3"
     "Freedom and Life are earned by those alone who conquer them each day anew."
     "To live is to keep moving forward, no matter what."
     "The world does not wait for anyone."
@@ -86,7 +91,7 @@ label dialogue:
 
 label town: 
     scene town
-    "The year was 18xx. The town of Kleinsee was busy preparing for its biggest event of the year. The PLACEHOLDER Festival."
+    "The year was 18xx. The town of Kleinsee was busy preparing for its biggest event of the year. The Mid-Autumn Festival."
     "The Festival brought in guests from all across the country."
     "The Mid-Autumn Festival was a yearly event that took place over the course of three days. It was full of local foods and fun."
     "On the final day, there is a large dance that involves both the townsfolk and any visitors. That was what made the final day the most popular."
@@ -604,7 +609,7 @@ label Questioning1:
             show Emil happy
             "After an unquantifiable amount of time Emil finally asked the woman about the noises."
             t "I did hear something strange on the way back to the Inn last night."
-            t "It sounded like a combination of cuckoo and a goat. It was quite a thing to hear late at night."
+            t "It sounded like a combination of a cuckoo and a goat. It was quite a thing to hear late at night."
             t "It gave me a fright, so I hurried back to the Inn."
             show Emil grim
             e "I see, that must have been hard for you."
@@ -846,7 +851,7 @@ m "Siofra. I think it's a foreign name."
 show Emil grim with vpunch
 e "That's that weird, scary looking lady, right?!"
 show Cordula frown
-c "No need to yell"
+c "No need to yell."
 "Cordula glared at Emil."
 show Cordula open
 c "Some people are probably trying to sleep at this hour. I don't want to upset anyone."
@@ -856,7 +861,7 @@ e "I heard rumors about that lady. I heard she came here just to curse this town
 show Cordula surprised
 c "And where did you hear that from?"
 e "... The tavern."
-m "That was just some local drunks ravings! He probably just doesn't like outsiders!"
+m "That was just some local drunk's ravings! He probably just doesn't like outsiders!"
 show Emil grim
 e "That could be true... But still it's a worrying rumor right?"
 show Cordula open
