@@ -43,7 +43,7 @@ define t = Character ("Visitor", callback=make_blips({
     "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
     "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
 }))
-#all of these audio files are placeholders right now. in future characters will have different blips.
+#all of these audio files (minus eufrid) are placeholders right now. in future characters will have different blips.
 
 image Emil happy = "Emil.png"
 image Emil sad = "EmilSad.png"
@@ -74,8 +74,8 @@ image Stalls_Night = "images/Stalls1.png"
 image Lake = "images/Lake1.png"
 image Forest = "images/Forest.png"
 
-define audio.towntune = "audio/MX_Town_draft1.mp3"
-define audio.festivaltune = "audio/MX_Town_draft1.mp3"
+define audio.towntune = "audio/MX_Town_draft1.ogg"
+define audio.festivaltune = "audio/MX_Festival_Draft1.mp3"
 
 default visited = set()
 default investigated = set()
@@ -121,6 +121,7 @@ label start:
     
     call screen Nothing
     m "What is that...?"
+# Need to change this scene. It annoys me to play :(
 
 label dialogue:
     m "..."
@@ -132,7 +133,7 @@ label dialogue:
     jump town
 
 label town: 
-    scene town
+    scene town with fade
     play music towntune fadein 1.0
     "The year was 18xx. The town of Kleinsee was busy preparing for its biggest event of the year. The Mid-Autumn Festival."
     "The festival brought in guests from all across the country."
@@ -200,14 +201,14 @@ m "I suppose that you could look at it that way."
 m "Either way, I have a lot to think about."
 "I started to leave."
 c "See you later tonight!"
-hide Cordula frown with dissolve
+hide Cordula with dissolve
 
 jump town_menu
 
 
 
 label wander:
-scene Stalls
+scene Stalls with fade
 "I went to look at the rest of the festival stalls. I hadn't been able to get a look at any while I was setting up our stall."
 "This year the amount of stalls doubled. It seemed like the mayor really wanted to make sure this year had a big turnout."
 "I heard he had even reached out to foreign vendors, which is why the stall numbers had doubled. I was curious to see what these new vendors had up their sleeve."
@@ -233,7 +234,7 @@ m "Well, 'tis nice to meet you, Siofra. Hopefully, I'll have some free time to c
 "Siofra gave a slight smile."
 show Siofra open
 s "I hope so as well."
-hide Siofra open
+hide Siofra with dissolve
 "The way she smiled frightened me a bit. It reminded me of a rabid horse I had a run-in with as a child." 
 "But I wasn't one to judge off of appearances, so I tried to keep that thought out of my mind."
 # See if players like openish mouth for each time character is speaking. 
@@ -248,9 +249,26 @@ show Walaram happy
 w "How might you be doing today?"
 "This man was Walaram, he had moved to Kleinsee a little over a year ago after finishing at University."
 "He is one of the main writers in our local newspaper. Who knows why someone with such a prestigious degree ended up in this town."
-m "Just fine." #May wanna change. 
-# add more to this obviously
-hide Walaram
+"There were a lot of people in our town who weren't too fond of him. I somewhat tolerated him, so he gravitated towards me."
+m "I'm doing just fine. How about yourself?"
+"I personally wasn't a huge fan of Walaram's personality. He was always prying. I found it rather annoying."
+# This might not make sense.
+show Walaram question
+w "I'm doing dandy as usual, but I was wondering something?"
+"{i}Here we go. Time for what he really wants...{/i}"
+m "What is it?"
+"I gave him an annoyed look, but I doubted he would care how I felt right now."
+show Walaram surprised
+w "Have you heard any interesting rumors lately, what with the upcoming festival and all?"
+"Yes, this was the type of person he was. He was always on the hunt for a scoop."
+m "No, I spent most of the day working. I didn't have time to see anything interesting."
+show Walaram concern
+w "Hmm, I see."
+show Walaram question
+w "Well then, I'll be off!"
+hide Walaram with dissolve
+"He left with haste, leaving me alone once again."
+
 jump town_menu
 
 
@@ -288,7 +306,7 @@ label all_viewed:
     m "{i}They don't seem to be coming back anytime soon. I should probably leave.{/i}"
     play audio "audio/Door.mp3"
     m "?"
-    show Emil happy
+    show Emil happy with fade 
     e "Good afternoon Eufrid. What are you doing here?"
     "This is just the person I was looking for."
     "This is Emil. We have known each other since we were kids."
@@ -328,13 +346,13 @@ label all_viewed:
 
 label after_chat:
     m "Bye! See you tonight!"
-    hide Emil with dissolve
+    hide Emil with fade
     jump town_menu
 
 label MeetUp1:
     stop music fadeout 1.0
 
-    scene Fountain_Night
+    scene Fountain_Night with fade
 "After all that excitement, it was almost dusk. Which meant it was almost time for my favorite part of the day."
 "Cordula, Emil and I had a daily tradition. Each day at dusk we would meet up in the Town Center and spend time together."
 "We had been doing this since we were kids. At first it was just an excuse to ditch our chores, but now it had become a tradition."
@@ -394,8 +412,8 @@ show Emil happy
 e "Yeah, I was getting tired too. I think I am going to head back."
 "I agreed with them, and with that we parted for the day."
 
-hide Emil
-hide Cordula
+hide Emil with fade
+hide Cordula with fade
 label Night:
 scene black
 "I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
@@ -403,7 +421,6 @@ scene black
 play audio "audio/Wake.mp3"
 $ renpy.notify("Start of Day 1")
 # MC bedroom Placeholder in future?
-# Here is where I stopped editing for a bit. 
 "I awoke to a wolf howling in the distance."
 "It did not bother me too much, since it was just about time for me to make my way over to the stand."
 "I got dressed for the day and left my home with little fanfare. "
@@ -411,7 +428,7 @@ scene town
 "I left my home in a hurry. As I walked along the empty streets I heard a noise."
 play audio "audio/Growl.mp3"
 "It stopped me in my tracks. I looked around, but failed to see anything out of the ordinary so I continued to make my way to the stand."
-scene Stalls
+scene Stalls with fade
 "Since I had prepped everything yesterday, I had little to do other than get out a few items that were to be displayed directly on the counter." 
 "After that was complete, it was just about time for the first day of the festival to begin."
     # add bustling sfx
@@ -444,17 +461,44 @@ menu:
         "There he found nothing, soon after the cries stopped."
         "With nothing else to do, he headed back to his home like he originally planned."
 
+#Have Walaram appear after talk about try to talk to Eufrid. 
+
 "The rest of the festival went off with little fanfare. We ended up making a record first-day sale."
-"All the day-stalls around me were preparing to close, so I did the same."
+"All the day-stalls around me were preparing to close, so I started to do the same."
+"As I put the stock away I heard a voice speak up."
+w "Hello Eufrid. How are you doing on this dandy night?"
+"I recognized the voice instantly. Walaram. I pulled my head out from under the stall table."
+show Walaram happy
+m "I'm doing just fine. To what do I owe the pleasure?"
+m "Were you looking to buy something? Sorry, but we are closed."
+show Walaram question
+w "Oh heavens no! I was just wondering if you heard anything interesting while working today."
+m "{i} That's a little rude. Is the idea of buying from me so crazy to him?{/i}"
+
+menu:
+    "Tell him what you heard":
+        show Walaram happy
+        "I told Walaram what I overheard today."
+        "He wrote down what I said with great interest."
+        "After I was done telling the tale he ran off after giving a quick thank you."
+        hide Walaram with fade
+
+    "Don't tell him":
+        show Walaram concern
+        "I told Walaram I was too busy working to hear anything interesting."
+        "After that he dejectedly walked away."
+        hide Walaram with fade
+    # figure out if you want to actual have a conversation here.
+
 "My energy was all but drained, but I still had to go and meet up with Cordula and Emil."
 stop music fadeout 1.0
 
 label Night1:
-scene Fountain_Night
+scene Fountain_Night with fade
 $ renpy.notify("Night 1")
 "When I reached the fountain, only Cordula had arrived. She was sitting on the fountain cleaning her harmonica."
 "The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
-show Cordula happy
+show Cordula happy with fade
 m "Seems like Emil is the loser today."
 show Cordula surprised
 c "Seems like it... Sorry I did not get a chance to stop by your stall today."
@@ -466,8 +510,8 @@ c "A lot of the outsiders have never seen something like it, so I was able to ga
 # add sfx here
 "A crash could be heard from the distance. I looked behind me to see Emil, fallen into a bush."
 "It seemed like he had been trying to sneak up on us but had gotten too nosy. He brushed himself off then made his way over to us."
-show Cordula happy at left
-show Emil sad at right
+show Cordula happy at left with move
+show Emil sad at right with move
 
 e "Good evening you two. Having all this fun without me?"
 show Emil smirk
@@ -497,8 +541,8 @@ label lake_start:
     e "Sounds interesting. I can barely remember the last time I visited the lake."
     show Cordula open
     c "'Tis getting quite dark. I should do well to grab a lantern."
-    hide Cordula 
-    hide Emil
+    hide Cordula with fade
+    hide Emil with fade
 
     "Cordula went towards her home. Leaving Emil and I alone for but a couple of minutes."
     "We casually spoke about what else occurred in our respective days."
@@ -519,15 +563,14 @@ show Emil grim
 e "Wow, the lake is a little eerie at night, ain't it?"
 "Emil broke the silence, his voice shaking a bit. He had never been great with the night, even now as an adult."
 "Though, I would tend to agree with what he said. There was a certain vastness to lakes in the dark." 
-hide Emil happy 
+hide Emil 
 show Cordula happy at left
 show Emil happy at right
 
-
 c "Let us investigate this as quickly as possible. We all still have to work tomorrow."
 "Wasting time was never Cordula's forte. With that we got to work."
-hide Cordula happy
-hide Emil happy
+hide Cordula
+hide Emil
 
 screen lake():
     imagemap:
@@ -557,7 +600,7 @@ label lake_loop:
         show Emil happy
         e "The forest looks so small from this view." 
         m "It hardly even looks like a forest. The trees look like sticks."
-        hide Emil
+        hide Emil with dissolve
         "It's too far away to see anything of note from the forest."
         
     elif spot == "Glow":
@@ -569,7 +612,7 @@ label lake_loop:
         show Cordula frown
         "Emil tried to speak but Cordula shushed him before he could get out what he wanted to say."
         "We all stayed quiet, listening to the singing. After a couple of minutes it faded, and with that the glow also faded."
-        hide Cordula
+        hide Cordula with dissolve
 
     $ investigated.add(spot)
 
@@ -580,7 +623,7 @@ jump lake_loop
 
 label lake_investigated:
     m "I think we looked at everything around here. Should we start heading back?"
-    show Cordula open
+    show Cordula open with fade
     c "Yes, it is getting quite late."
     # consider having a forest background or something. forest pathway?
     hide Cordula
@@ -588,8 +631,8 @@ label lake_investigated:
     "We made our way back towards the town."
     scene Stalls_Night
     "Once we arrived it took a while for anyone to speak of the glow we saw, but eventually Cordula brought it up."
-    show Cordula open at left
-    show Emil happy at right 
+    show Cordula open at left with fade
+    show Emil happy at right with fade
     c "We are all in agreement that what we saw today was the same phenomenon as what Eufrid heard about today, right?"
     show Emil grim
     e "But none of us were drawn to the water. Or at least I was not. Were you two at all?"
@@ -616,8 +659,8 @@ if Noises:
     show Emil grim
     e "I see no reason not to. It is too early to go to bed quite yet."
     m "I agree, I am rather curious about these noises. It could be just a kid's ramblings, or it could be something much deeper than that."
-    hide Emil
-    hide Cordula
+    hide Emil with fade
+    hide Cordula with fade
     "With that we went off to the town to question other residents and visitors."
     "Gas lamps lined the streets, illuminating the night."
     "They had only been installed recently, most likely to help this year's festival."
@@ -720,7 +763,7 @@ label morn2:
     "What I heard weighed on my mind. It made me feel a bit uneasy."
 
 label Stalls2:
-    scene Stalls
+    scene Stalls with fade
     $ renpy.notify("Festival Day 2")
     play music festivaltune fadein 1.0
     "Once I made my way to my stand I started to reorganize it. We had already run out of our stock of scarves so I had to find something else to replace it on the display."
@@ -758,7 +801,7 @@ label EndRumors2:
     "After that lull, the crowds came back in full force."
     "Throughout the rest of my time working the stall I didn't have any more strange encounters."
     "I was able to sell even more products than the prior day, so I ended the day rather cheerful."
-    scene Stalls_Night
+    scene Stalls_Night with fade
     stop music fadeout 1.0
     "Soon the end of the day had come and I started to stow away my products. With my head under the table I heard a voice calling me."
     "I went to greet the stranger and hit my head on the table as I arose."
@@ -785,7 +828,7 @@ m "Thank you? If you want you can stop by the stall tomorrow, I may be able to g
 "I figured once the festival was over we would have some things left over. I could find a little something to give to Siofra."
 show Siofra open
 s "You don't need to do all that. Think nothing of this gift." 
-hide Siofra
+hide Siofra with fade
 "Before I could get another word Siofra turned around and left with great haste."
 "The encounter left a strange taste in my mouth. I didn't know what to make of it."
 
@@ -873,8 +916,8 @@ show Emil happy
 e "I ran into her on the way here. She told me she would be a little late."
 "We ended up waiting for Cordula for another fifteen minutes, chatting all the while."
 "Soon I saw Cordula lightly jogging towards us from a distance."
-show Emil smirk at right
-show Cordula surprised at left
+show Emil smirk at right with move
+show Cordula surprised at left with move
 c "Sorry for my tardiness."
 "She said, out of breath. She leaned over, trying to recover."
 m "It's okay. It wasn't too long."
@@ -941,8 +984,8 @@ show Emil sad with vpunch
 e "Ouch! What was that for."
 m "For believing something so easily. The whole point of this festival is to show our town to the world."
 m "And here you are trying to tell us that a visitor is doing something nefarious. With no proof, might I add."
-hide Emil
-hide Cordula
+hide Emil with dissolve
+hide Cordula with dissolve
 "We continued to berate Emil for a couple more minutes."
 "After that we went our separate ways."
 scene black
