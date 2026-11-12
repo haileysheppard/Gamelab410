@@ -131,7 +131,7 @@ define gui.namebox_tile = False
 ## number of pixels relative to the left or top side of the textbox, or 0.5 to
 ## center.
 define gui.dialogue_xpos = 402
-define gui.dialogue_ypos = 75
+define gui.dialogue_ypos = 100
 
 ## The maximum width of dialogue text, in pixels.
 define gui.dialogue_width = 1116
@@ -442,7 +442,7 @@ init python:
         ## Adjust the location of the textbox.
         gui.textbox_height = 360
         gui.name_xpos = 120
-        gui.dialogue_xpos = 135
+        gui.dialogue_xpos = 145
         gui.dialogue_width = 1650
 
         ## Change the size and spacing of various things.

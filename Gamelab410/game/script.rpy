@@ -63,6 +63,7 @@ image Walaram surprised = "Walconcern.png"
 image Walaram question = "WalMog.png"
 image Walaram concern  = "WalNeutral.png"
 
+image drunk = "images/DrunkMan.png"
 image bakery1 = "images/BakeryFinal.png"
 image nothing = "images/Blank.jpg"
 image town = "images/Stalls2.png"
@@ -73,7 +74,9 @@ image Stalls = "images/Stalls2.png"
 image Stalls_Night = "images/Stalls1.png"
 image Lake = "images/Lake1.png"
 image Forest = "images/Forest.png"
+image Forest_Night = "images/Forest2.png"
 
+image Sun = Transform("images/Sun.png", size=(40, 40))
 define audio.towntune = "audio/MX_Town_draft1.ogg"
 define audio.festivaltune = "audio/MX_Festival_Draft1.mp3"
 
@@ -92,15 +95,10 @@ default Second = False
 default Lake2 = False
 default Noises2 = False
 default investigated2 = set()
-
-screen Nothing():
-    imagemap:
-        ground "start"
-        hotspot (613, 240, 620, 510) action Jump("dialogue") tooltip "..."
-
-    $ tooltip = GetTooltip()
-    if tooltip:
-        text "[tooltip]" xalign 0.5 yalign 0.75
+default Lake3 = False
+default Noises3 = False
+default Misc = False
+default Misc2 = False
 
 screen forest_path():
     imagemap:
@@ -118,12 +116,6 @@ label start:
     "Freedom and Life are earned by those alone who conquer them each day anew."
     "To live is to keep moving forward, no matter what."
     "The world does not wait for anyone."
-    
-    call screen Nothing
-    m "What is that...?"
-# Need to change this scene. It annoys me to play :(
-
-label dialogue:
     m "..."
     "You need to get moving"
     m "..."
@@ -386,18 +378,21 @@ c "So, did anything interesting happen to either of you today?"
 "I thought for a moment, did anything of note happen today. That woman I met at the stalls came to my mind."
 "I looked toward Emil. He also seemed to be in thought."
 "Before either of us could respond a hysterical voice rang out. We all looked towards the speaker. "
-show Cordula surprised
-show Emil grim
+hide Cordula
+hide Emil
+show drunk
 v "'Tis all true you know!"
 "The man was slurring his words and was flailing about, he was probably just a visiting drunk."
 v "I know what I saw. There was most definitely something, something demonic, or what not attacking that woman."
 "At this I perked up, maybe there was some merit to this man's rambling."
+hide drunk
 "Before I could continue this line of thought someone ushered the man back into the local inn."
 "For a while none of us spoke until Emil finally broke the silence."
+show Emil grim
 e "I assume we will be seeing a lot more of those types of people during the festival."
 "He tried to play it off as a joke, but the prospect made me worry a bit."
-show Emil happy
-show Cordula open
+show Emil happy at left with move
+show Cordula open at right with move
 c "I hope not. Think of the mess that could cause."
 "Emil and Cordula continued to argue about whether or not raving drunks was a good thing or a bad thing."
 "I did not speak up during the conversation; I could not get my mind off that man."
@@ -419,7 +414,7 @@ scene black
 "I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
 "I fell asleep with little struggle."
 play audio "audio/Wake.mp3"
-$ renpy.notify("Start of Day 1")
+show screen day_notify("Start of Day 1")
 # MC bedroom Placeholder in future?
 "I awoke to a wolf howling in the distance."
 "It did not bother me too much, since it was just about time for me to make my way over to the stand."
@@ -433,7 +428,7 @@ scene Stalls with fade
 "After that was complete, it was just about time for the first day of the festival to begin."
     # add bustling sfx
 
-$ renpy.notify("Festival Day 1")
+show screen day_notify("Festival Day 1")
 play music festivaltune fadein 1.0
 "The crowds came in little time. I tended to the stall with fervor."
 "Throughout the day I overheard many different conversations."
@@ -461,8 +456,6 @@ menu:
         "There he found nothing, soon after the cries stopped."
         "With nothing else to do, he headed back to his home like he originally planned."
 
-#Have Walaram appear after talk about try to talk to Eufrid. 
-
 "The rest of the festival went off with little fanfare. We ended up making a record first-day sale."
 "All the day-stalls around me were preparing to close, so I started to do the same."
 "As I put the stock away I heard a voice speak up."
@@ -478,16 +471,36 @@ m "{i} That's a little rude. Is the idea of buying from me so crazy to him?{/i}"
 menu:
     "Tell him what you heard":
         show Walaram happy
-        "I told Walaram what I overheard today."
-        "He wrote down what I said with great interest."
-        "After I was done telling the tale he ran off after giving a quick thank you."
-        hide Walaram with fade
+        if Lake:
+            m "All I heard about was someone's cow drowning last night. Nothing too absurd." # this is worded a bit strangely. consider changing in the future
+            "Walaram perked up at that."
+            show Walaram surprised
+            w "Do you happen to know whose it was?"
+            m "No, sorry I just overheard some villagers discussing it."
+            show Walaram concern
+            w "I see. Well, I'm off to do some investigating of my own."
+            w "Thanks for the information! You've been a big help!"
+            hide Walaram with fade
+
+        else:
+            m "Apparently last night a group of kids heard some strange noises."
+            m "The kid claimed it sounded like a baby, but when he went to search for the voice he couldn't find anything."
+            m "Eventually the cries stopped and the kid went home."
+            show Walaram surprised
+            w "Interesting... Do you happen to know the name of the kid?"
+            m "No, sorry I just overheard some kids talking about it."
+            w "Well, thanks anyway! You've been a big help!"
+            hide Walaram with fade
+
+        "With that parting thanks Walaram ran off."
+        m "{i}Typical Walaram...{/i}"
 
     "Don't tell him":
+        m "I didn't hear anything, I was too busy working to focus on something like that."
         show Walaram concern
-        "I told Walaram I was too busy working to hear anything interesting."
-        "After that he dejectedly walked away."
+        w "I see..."
         hide Walaram with fade
+        "After that he dejectedly walked away."
     # figure out if you want to actual have a conversation here.
 
 "My energy was all but drained, but I still had to go and meet up with Cordula and Emil."
@@ -495,7 +508,7 @@ stop music fadeout 1.0
 
 label Night1:
 scene Fountain_Night with fade
-$ renpy.notify("Night 1")
+show screen day_notify("Night 1", icon="images/Moon.png")
 "When I reached the fountain, only Cordula had arrived. She was sitting on the fountain cleaning her harmonica."
 "The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
 show Cordula happy with fade
@@ -550,7 +563,7 @@ label lake_start:
     scene Stalls_Night
     "We went towards the lake with Cordula's lamp lighting our way, passing by the now empty stalls as we walked."
     "We had to walk through the forest to reach the lakeshore."
-    scene Forest
+    scene Forest_Night
     "As a child, I had always been afraid of the forest. I eventually got over that fear, but still found it frightening to walk alone at night in there."
     "Luckily I wasn't alone tonight."
     "Eventually, we reached the shore of the lake."
@@ -587,7 +600,7 @@ screen lake():
         text "[tooltip]" xalign 0.5 yalign 0.75
 
 label lake_loop:
-    $ renpy.notify("Night 1 Investigation")
+    show screen day_notify("Night 1 Investigation", icon="images/Moon.png")
     call screen lake
     $ spot = _return
 
@@ -625,9 +638,8 @@ label lake_investigated:
     m "I think we looked at everything around here. Should we start heading back?"
     show Cordula open with fade
     c "Yes, it is getting quite late."
-    # consider having a forest background or something. forest pathway?
     hide Cordula
-    scene Forest
+    scene Forest_Night
     "We made our way back towards the town."
     scene Stalls_Night
     "Once we arrived it took a while for anyone to speak of the glow we saw, but eventually Cordula brought it up."
@@ -667,7 +679,7 @@ if Noises:
     "We soon reached our destination and began to start our questioning."
 
 label Questioning1:
-    $ renpy.notify("Night 1 Questioning")
+    show screen day_notify("Night 1 Questioning", icon="images/Moon.png")
     if ElderlyWoman and WorkingMan and YoungVisitor:
         jump EndQuestioning1
 
@@ -735,7 +747,7 @@ label EndQuestioning1:
 
 label EndNight1:
     scene black
-    $ renpy.notify("End of Night 1")
+    show screen day_notify("End of Night 1", icon="images/Moon.png")
     "With that I reached my home and went to bed."
     "..."
     "I awoke with a start, once again hearing a strange noise outside."
@@ -758,13 +770,13 @@ label street_morn2:
     jump morn2
 
 label morn2:
-    $ renpy.notify("Start of Day 2")
+    show screen day_notify("Start of Day 2")
     "I went towards the town center, walking at a hurried pace."
     "What I heard weighed on my mind. It made me feel a bit uneasy."
 
 label Stalls2:
     scene Stalls with fade
-    $ renpy.notify("Festival Day 2")
+    show screen day_notify("Festival Day 2")
     play music festivaltune fadein 1.0
     "Once I made my way to my stand I started to reorganize it. We had already run out of our stock of scarves so I had to find something else to replace it on the display."
     "I ended up replacing the scarf section with silverware made by a local artisan." 
@@ -834,7 +846,7 @@ hide Siofra with fade
 
 label Fountain_Night2:
     scene Fountain_Night
-$ renpy.notify("Night 2")
+    show screen day_notify("Night 2", icon="images/Moon.png")
 
 "I was the first one at the fountain tonight. I went to lean against the fountain."
 menu: 
@@ -874,7 +886,7 @@ screen FountainInvest():
         text "[tooltip]" xalign 0.5 yalign 0.75
 
 label Fountain_Loop:
-    $ renpy.notify("Night 2 Investigation")
+    show screen day_notify("Night 2 Investigation", icon="images/Moon.png")
     call screen FountainInvest
     $ spot = _return
 
@@ -899,7 +911,6 @@ label Fountain_Loop:
 
 jump Fountain_Loop
 label Night2:
-    $ renpy.notify("Night 2")
 "I felt a tap upon my shoulder and turned around to see Emil."
 show Emil smirk
 e "The party has arrived."
@@ -987,9 +998,66 @@ m "And here you are trying to tell us that a visitor is doing something nefariou
 hide Emil with dissolve
 hide Cordula with dissolve
 "We continued to berate Emil for a couple more minutes."
-"After that we went our separate ways."
+"After that we went our separate ways and I made my way home."
+
 scene black
-$ renpy.notify("End of Night 2")
+show screen day_notify("End of Night 2", icon="images/Moon.png")
+"..."
+$ renpy.notify ("Start of Day 3")
+"I awoke to the sun's rays blazing into my room."
+"I got up in surprise. I overslept!"
+"I hurriedly got ready, throwing my clothes on as fast as possible."
+"I ran out the door and made my way towards the stalls."
+scene Stalls
+"I was almost there when I heard a voice."
+w "Hello, Eufrid. What's the rush?"
+show Walaram happy
+m "I can't talk right now, sorry Walaram!"
+hide Walaram with vpunch
+"I pushed past him with a little more force than I intended."
+w "Woah. I get it."
+"By the time he spoke up I was already far past him."
+"I reached my stall, fully out of breath and got prepared for the day."
+$ renpy.notify ("Festival Day 3")
+play music festivaltune fadein 1.0
+"I started the day. No one pointed out my disheveled appearence, so maybe it wasn't as bad as I thought."
+"I served a large variety of customers, some were people I saw everyday and others were people I had never seen in my life."
+"By noon, I had already sold more product than either of the previous days."
+"I had to constantly restock our display products. I spent more time under the table searching for items than actually vending."
+"The second I restocked people would come and buy up the entire stock."
+"There was only lull during the day."
+"A show was set to take place at three, almost all of the stalls were empty."
+"I was able to listen in to the conversations had by the few stragglers. "
+
+label rumors3:
+        if Misc2 and Misc and Lake3 or Noises3:
+            jump EndRumors3
+menu: 
+    "What should I listen to?" #REWORD PLEASE
+
+    "Wailing in Cornfield"if Noises2 and not Noises3:
+        $ Noises3 = True
+        "WAILING IN CORNFIELD"
+        jump rumors3
+
+    "Missing Husband"if Lake2 and not Lake3:
+        $ Lake3 = True
+        "MISSING HUSBAND"
+        jump rumors3
+
+    "Mayor"if not Misc:
+        $ Misc = True
+        "MAYOR"
+        jump rumors3
+        
+    "Cat"if not Misc2:
+        $ Misc2 = True
+        "CAT"
+        jump rumors3
+
 
 # For day 3 deaths and such have Cordula go to bakery at night!!!
+
+label EndRumors3:
+    "TEHSDF"
 return

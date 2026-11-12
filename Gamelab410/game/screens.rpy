@@ -1264,6 +1264,17 @@ style skip_triangle:
 ## the game is quicksaved or a screenshot has been taken.)
 ##
 ## https://www.renpy.org/doc/html/screen_special.html#notify-screen
+screen day_notify(message, icon="images/Sun.png"):
+    zorder 100
+    style_prefix "notify"
+
+    frame at notify_appear:
+        hbox:
+            spacing 10
+            add icon yalign 0.5
+            text "[message!t]"
+
+    timer 3.25 action Hide("day_notify")
 
 screen notify(message):
 
@@ -1271,7 +1282,7 @@ screen notify(message):
     style_prefix "notify"
 
     frame at notify_appear:
-        text "[message!tq]"
+        text "[message!t]"
 
     timer 3.25 action Hide('notify')
 
