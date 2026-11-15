@@ -107,6 +107,13 @@ default Drunk = False
 default EmilDay3 = False
 
 
+screen Lake_Cordula():
+    imagemap:
+        ground "images/LakePLACEHOLDER.png"
+        hotspot (1474, 502, 325, 203) action Return ("Cordula") tooltip "?"
+        hotspot (4, 371, 530, 181) action Return("Fence2") tooltip "Fence"
+        hotspot (646, 26, 1245, 428) action Return ("Forest2") tooltip "Forest"
+
 screen forest_path():
     imagemap:
         ground "images/BakeryFinal.png"
@@ -172,6 +179,7 @@ label town_menu:
 label Search_Cordula:
 "Cordula was a friend I have had ever since my childhood. She moved to Kleinsee when she was eight, and we had been friends ever since."
 "She spent most of her free time around the fountain. It was there that she liked to play her Harmonica for tips."
+play audio "audio/SFX_footstep_dirt.FLAC"
 scene Fountain
 "Cordula was gracefully playing her Harmonica in the middle of the fountain square. She had garnered a small crowd."
 # Add sound effects here. Some for crowd + possibly find a harmonica track.
@@ -186,7 +194,6 @@ c "I think anything is more exciting than setting up a table all day."
 m "That's why I came to see you and not anyone else."
 show Cordula open with vpunch
 "Cordula gave me a playful shove." 
-#possibly add animation here. 
 c "How did the setup for your parents' stall go?"
 m "It was surprisingly simple. I just had to make sure the main stars of our stall were all front and center. "
 m "For the placement of everything else I just played it by eye."
@@ -273,6 +280,7 @@ jump town_menu
 
 
 label bakery:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene bakery1
 
 label bakery_loop:
@@ -351,7 +359,7 @@ label after_chat:
 
 label MeetUp1:
     stop music fadeout 1.0
-
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night with fade
 "After all that excitement, it was almost dusk. Which meant it was almost time for my favorite part of the day."
 "Cordula, Emil and I had a daily tradition. Each day at dusk we would meet up in the Town Center and spend time together."
@@ -418,6 +426,7 @@ e "Yeah, I was getting tired too. I think I am going to head back."
 hide Emil with fade
 hide Cordula with fade
 label Night:
+play audio "audio/SFX_footstep_dirt.FLAC"
 scene black
 "I went home and immediately went to my bed. I was exhausted from all the prep work I did today and it was already fairly late." 
 "I fell asleep with little struggle."
@@ -427,10 +436,12 @@ show screen day_notify("Start of Day 1")
 "I awoke to a wolf howling in the distance."
 "It did not bother me too much, since it was just about time for me to make my way over to the stand."
 "I got dressed for the day and left my home with little fanfare. "
+play audio "audio/SFX_footstep_dirt.FLAC"
 scene town
 "I left my home in a hurry. As I walked along the empty streets I heard a noise."
 play audio "audio/Growl.mp3"
 "It stopped me in my tracks. I looked around, but failed to see anything out of the ordinary so I continued to make my way to the stand."
+play audio "audio/SFX_footstep_dirt.FLAC"
 scene Stalls with fade
 "Since I had prepped everything yesterday, I had little to do other than get out a few items that were to be displayed directly on the counter." 
 "After that was complete, it was just about time for the first day of the festival to begin."
@@ -516,6 +527,7 @@ stop music fadeout 1.0
 
 label Night1:
 scene Fountain_Night with fade
+play audio "audio/SFX_footstep_dirt.FLAC"
 show screen day_notify("Night 1", icon="images/Moon.png")
 "When I reached the fountain, only Cordula had arrived. She was sitting on the fountain cleaning her harmonica."
 "The sun was just about to set and the fountain was awash with the colors from the sky. She looked up as I got closer."
@@ -528,7 +540,7 @@ m "It's okay. Were you able to get a lot of tips today?"
 show Cordula open
 c "I think I got the most tips I have ever gotten. I made a good choice in bringing out my harmonica."
 c "A lot of the outsiders have never seen something like it, so I was able to garner a great crowd."
-# add sfx here
+play audio "audio/SFX_footstep_dirt.FLAC"
 "A crash could be heard from the distance. I looked behind me to see Emil, fallen into a bush."
 "It seemed like he had been trying to sneak up on us but had gotten too nosy. He brushed himself off then made his way over to us."
 show Cordula happy at left with move
@@ -571,11 +583,13 @@ label lake_start:
     scene Stalls_Night
     "We went towards the lake with Cordula's lamp lighting our way, passing by the now empty stalls as we walked."
     "We had to walk through the forest to reach the lakeshore."
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Forest_Night
     "As a child, I had always been afraid of the forest. I eventually got over that fear, but still found it frightening to walk alone at night in there."
     "Luckily I wasn't alone tonight."
     "Eventually, we reached the shore of the lake."
 label lake:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Lake
 "This was the first time I had seen the lake at night since I was a child."
 "There used to be a festival that took place near the lake, but ten years ago they stopped doing it."
@@ -647,8 +661,10 @@ label lake_investigated:
     show Cordula open with fade
     c "Yes, it is getting quite late."
     hide Cordula
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Forest_Night
     "We made our way back towards the town."
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Stalls_Night
     "Once we arrived it took a while for anyone to speak of the glow we saw, but eventually Cordula brought it up."
     show Cordula open at left with fade
@@ -754,6 +770,7 @@ label EndQuestioning1:
     jump EndNight1
 
 label EndNight1:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene black
     show screen day_notify("End of Night 1", icon="images/Moon.png")
     "With that I reached my home and went to bed."
@@ -783,6 +800,7 @@ label morn2:
     "What I heard weighed on my mind. It made me feel a bit uneasy."
 
 label Stalls2:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Stalls with fade
     show screen day_notify("Festival Day 2")
     play music festivaltune fadein 1.0
@@ -853,6 +871,7 @@ hide Siofra with fade
 "The encounter left a strange taste in my mouth. I didn't know what to make of it."
 
 label Fountain_Night2:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night
     show screen day_notify("Night 2", icon="images/Moon.png")
 
@@ -1007,6 +1026,7 @@ hide Emil with dissolve
 hide Cordula with dissolve
 "We continued to berate Emil for a couple more minutes."
 "After that we went our separate ways and I made my way home."
+play audio "audio/SFX_footstep_dirt.FLAC"
 
 scene black
 show screen day_notify("End of Night 2", icon="images/Moon.png")
@@ -1016,6 +1036,7 @@ $ renpy.notify ("Start of Day 3")
 "I got up in surprise. I overslept!"
 "I hurriedly got ready, throwing my clothes on as fast as possible."
 "I ran out the door and made my way towards the stalls."
+play audio "audio/SFX_footstep_dirt.FLAC"
 scene Stalls
 "I was almost there when I heard a voice."
 w "Hello, Eufrid. What's the rush?"
@@ -1088,6 +1109,7 @@ label EndRumors3:
 
 if Lake:
     label Lake_Night3:
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night with fade
     show screen day_notify("Night 3", icon="images/Moon.png")
     show Emil happy with fade
@@ -1164,9 +1186,51 @@ label Night3_QuestioningEnd:
     show Emil happy with fade
     m "It seems like we need to pay the lake a visit."
     show Emil grim
-    e "It seems that way. Why would she go somewhere so spooky at this time."
+    e "It seems that way. Why would she go somewhere so spooky at this time?"
     "Emil shivered."
-    
+    hide Emil with fade
+    "I wanted to get this over with as soon as possible, so I ignored Emil's complaints and pushed forward."
+    "He trailed behind me the entire way."
+    scene Stalls_Night
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    "We passed the stalls. All of them were empty at this hour."
+    "The streets themselves were also empty. Which I found a little odd."
+    scene Forest_Night
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    "Soon we were walking in the forest, Emil grabbed my hand in fear."
+    show Emil grim
+    e "Sorry, I'm just a little freaked out right now."
+    m "It's fine."
+    "His palms were extremely sweaty."
+    "We soon arrived at the lake."
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    scene Lake
+    # add singing here eventually. 
+    "When we arrived I could hear a voice in the distance."
+    "It sounded exactly like the singing we heard the other day."
+    "I started to look for the voice."
+    show screen day_notify("Night 3 Investigation", icon="images/Moon.png")
+    call screen Lake_Cordula
+    $ spot = _return
+
+    if spot == "Fence2":
+        "The voice doesn't seem to be coming from there."
+
+    elif spot == "Forest2":
+        "I can't hear anything coming from the forest."
+        
+    elif spot == "Cordula":
+        "..."
+        #possible shock sfx
+        # possible zoom effect in future?
+
+        m "What is that?!" # add yell here. 
+        show Emil grim
+        e "...Huh?" # add yell here
+        "We both stood in shock for a second. Neither of us could believe our eyes."
+        "The singing continued on in the background, but it was an afterthought in my mind right now."
+
+
     #Outline for rest of Nixie loop 1
     # meet up with emil/ no cordula. go to ask around town. 
     # person tells them they heard her say something about going to the lake. 
