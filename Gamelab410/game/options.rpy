@@ -53,10 +53,14 @@ define config.has_voice = True
 
 ## To allow the user to play a test sound on the sound or voice channel,
 ## uncomment a line below and use it to set a sample sound to play.
+define audio.click = "audio/SFX_mouse_click_01.ogg"
+define audio.hover = "audio/SFX_mouse_hover_02.ogg"
 
 # define config.sample_sound = "sample-sound.ogg"
 # define config.sample_voice = "sample-voice.ogg"
-
+style button:
+    hover_sound "audio/hover.ogg"
+    activate_sound "audio/click.ogg"
 
 ## Uncomment the following line to set an audio file that will be played while
 ## the player is at the main menu. This file will continue playing into the

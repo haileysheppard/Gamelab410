@@ -4,19 +4,19 @@
 }))
 
 define c = Character("Cordula", callback=make_blips({
-    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
-    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+    "talk": "audio/SFX_Vox_Cordula_Talk_P02.OGG",
+    "yell": "audio/SFX_Vox_Cordula_Yell_P02.OGG"
 }))
 
 
 define e = Character("Emil", callback=make_blips({
-    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
-    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+    "talk": "audio/SFX_Vox_Emil_Talk_P02.FLAC",
+    "yell": "audio/SFX_Vox_Emil_Yell_P01.FLAC"
 }))
 
 define s = Character("Siofra", callback=make_blips({
-    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
-    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+    "talk": "audio/SFX_Vox_Siofra_Talk_P02.OGG",
+    "yell": "audio/SFX_Vox_Siofra_Yell_P02.OGG"
 }))
 
 define w = Character ("Walaram", callback=make_blips({
@@ -43,7 +43,11 @@ define t = Character ("Visitor", callback=make_blips({
     "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
     "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
 }))
-#all of these audio files (minus eufrid) are placeholders right now. in future characters will have different blips.
+
+define yw = Character ("Young Woman", callback=make_blips({
+    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
+    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+}))
 
 image Emil happy = "Emil.png"
 image Emil sad = "EmilSad.png"
@@ -76,7 +80,6 @@ image Lake = "images/Lake1.png"
 image Forest = "images/Forest.png"
 image Forest_Night = "images/Forest2.png"
 
-image Sun = Transform("images/Sun.png", size=(40, 40))
 define audio.towntune = "audio/MX_Town_draft1.ogg"
 define audio.festivaltune = "audio/MX_Festival_Draft1.mp3"
 
@@ -97,8 +100,12 @@ default Noises2 = False
 default investigated2 = set()
 default Lake3 = False
 default Noises3 = False
-default Misc = False
-default Misc2 = False
+default mayor = False
+default cat = False
+default youngwoman = False
+default Drunk = False
+default EmilDay3 = False
+
 
 screen forest_path():
     imagemap:
@@ -156,7 +163,7 @@ label town_menu:
             $ did_wander = True
             jump wander
         
-        "Stay here" if not did_stay:
+        "Take a break" if not did_stay:
             $ did_stay = True
             jump StayHere
    
@@ -235,6 +242,7 @@ jump town_menu
 
 label StayHere:
     scene town
+"I went and went towards a bench on the side of the walkway."
 "I sat around in wait for a long while, just watching people go by."
 "After a while a man approached me."
 show Walaram happy
@@ -1030,34 +1038,137 @@ play music festivaltune fadein 1.0
 "I was able to listen in to the conversations had by the few stragglers. "
 
 label rumors3:
-        if Misc2 and Misc and Lake3 or Noises3:
+        if cat and mayor and Lake3 or Noises3:
             jump EndRumors3
 menu: 
     "What should I listen to?" #REWORD PLEASE
 
     "Wailing in Cornfield"if Noises2 and not Noises3:
         $ Noises3 = True
-        "WAILING IN CORNFIELD"
+        "I overheard a group of older gentlemen talking about their farms."
+        "Last night, one of them heard a strange wailing noise coming from their cornfield."
+        "They ignored it because of how late it was, but when they went to check their fields this morning their crops were all taken."
+        "Only the grain had been taken. The man chalked it up to some animal."
+
         jump rumors3
 
     "Missing Husband"if Lake2 and not Lake3:
         $ Lake3 = True
-        "MISSING HUSBAND"
+        "I overheard a worried young woman talking to her friends."
+        "Her husband went out for a late night fishing trip last night and didn't return this morning."
+        "She searched the lake and found the same type of fishing line her husband uses strewn across the shore."
+
         jump rumors3
 
-    "Mayor"if not Misc:
-        $ Misc = True
-        "MAYOR"
+    "Mayor"if not mayor:
+        $ mayor = True
+        "I overheard a group of middle-aged men talking about the mayor."
+        "Apparently he had been seen heading to the show a couple of minutes ago."
+        "After hearing that the men made their way to the show."
+
         jump rumors3
         
-    "Cat"if not Misc2:
-        $ Misc2 = True
-        "CAT"
+    "Cat"if not cat:
+        $ cat = True
+        "I heard a noise from an alley near my stall."
+        "I looked towards it and saw a small cat. The cat licked it's paws then went deeper into the alley."
+
         jump rumors3
 
 
 # For day 3 deaths and such have Cordula go to bakery at night!!!
 
 label EndRumors3:
-    "TEHSDF"
+    "The crowds came back with full force after the show ended."
+    "The rest of the afternoon I was frantically running the stall, trying to make sure I didn't fall behind."
+    scene Stalls_Night with fade
+    "I completed the rest of the day with only a few mistakes."
+    "Once I was free from work I made my way to the fountain."
+    "I hoped the rest of the night would be uneventful. I was exhausted from work."
+
+if Lake:
+    label Lake_Night3:
+    scene Fountain_Night with fade
+    show screen day_notify("Night 3", icon="images/Moon.png")
+    show Emil happy with fade
+    e "What took you so long? I've been here forever!"
+    m "I was working."
+    "I didn't have the energy to play along with Emil tonight."
+    m "Cordula's not here yet? I thought she was ending early because of the show."
+    show Emil grim
+    e "Yeah, I thought so too. But I haven't seen her yet."
+    hide Emil with fade
+    "We sat and waited for a while longer until Emil got fed up."
+    show Emil sad
+    e "I'm going to ask around about her. Maybe someone saw her go home or something."
+    show Emil smirk
+    e "You in?"
+    "I nodded my head."
+    m "I think if I sit here much longer I may fall asleep, so I'm ready to get moving."
+    "I got up off the bench and we began our search."
+    hide Emil with fade
+    jump Night3_Questioning
+
+else:
+    "Nothing for now LOL"
+    return
+
+label Night3_Questioning:
+    if youngwoman and Drunk and EmilDay3:
+            jump Night3_QuestioningEnd
+
+    "We wandered around the town aimlessly for a bit. Before deciding to ask around"
+
+menu:
+    "Who should I talk to?"
+
+    "Young woman" if not youngwoman:
+        $ youngwoman = True
+        m "Have you seen a short woman wearing a blue bandana?" # See if anyone has any ideas on color
+        yw "I actually have. Was she the one performing here earlier?"
+        m "Yes! That should be her? Do you know where she went?"
+        yw "After she finished her song, she said she had to stop early to go check something out at the lake."
+        "That's odd. Why would she need to go there?"
+        m "I see. Thanks for the information!"
+
+        jump Night3_Questioning
+    "Drunk man" if not Drunk:
+        $ Drunk = True
+        show drunk with vpunch
+        "A man shoved himself into me. I looked up to see the man I heard the other day."
+        v "Excuse you!"
+        "The man slurred his words. He seemed quite intoxicated."
+        "I internally debated even trying to talk to him, but I was too worried about Cordula to avoid it."
+        "I bowed towards the man."
+        m "Sorry about that. I was just searching for my friend. In my rush, I didn't see you."
+        v "Hmmm, I see."
+        m "Have you see a woman wearing a blue bandana around here?"
+        v "No, I just got here. The stupid tavern owner kicked me out so I decided to come sit by the fountain."
+        "I winced, that makes sense, I wouldn't want this man in our store either..."
+        m "I see. Thanks anyways!"
+        hide drunk
+        "I was able to escape from the drunk before he trapped me in a conversation."
+
+        jump Night3_Questioning
+
+    "Emil" if not EmilDay3:
+        $ EmilDay3 = True
+        show Emil grim with fade
+        m "So you don't have any idea where she could be?"
+        e "No idea. I haven't seen her since yesterday"
+        m "Same. That's a little worrying..."
+        
+        jump Night3_Questioning
+
+label Night3_QuestioningEnd:
+    show Emil happy with fade
+    m "It seems like we need to pay the lake a visit."
+    show Emil grim
+    e "It seems that way. Why would she go somewhere so spooky at this time."
+    "Emil shivered."
+    
+    #Outline for rest of Nixie loop 1
+    # meet up with emil/ no cordula. go to ask around town. 
+    # person tells them they heard her say something about going to the lake. 
+    # go to lake see hints of cordula. 
 return

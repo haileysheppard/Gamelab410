@@ -8,6 +8,7 @@ init offset = -2
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
+
 init python:
     gui.init(1920, 1080)
 
@@ -15,6 +16,11 @@ init python:
 define config.check_conflicting_properties = True
 
 
+style button:
+    hover_sound "audio/SFX_mouse_hover_02.ogg"
+    activate_sound "audio/SFX_mouse_click_01.ogg"
+    # for mouse sounds 
+    
 ################################################################################
 ## GUI Configuration Variables
 ################################################################################
