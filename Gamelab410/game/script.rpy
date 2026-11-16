@@ -106,13 +106,16 @@ default youngwoman = False
 default Drunk = False
 default EmilDay3 = False
 
-
 screen Lake_Cordula():
     imagemap:
-        ground "images/LakePLACEHOLDER.png"
+        ground "images/LakePLACEHOLDER.jpg"
         hotspot (1474, 502, 325, 203) action Return ("Cordula") tooltip "?"
         hotspot (4, 371, 530, 181) action Return("Fence2") tooltip "Fence"
         hotspot (646, 26, 1245, 428) action Return ("Forest2") tooltip "Forest"
+
+    $ tooltip = GetTooltip()
+    if tooltip:
+        text "[tooltip]" xalign 0.5 yalign 0.75
 
 screen forest_path():
     imagemap:
@@ -1223,16 +1226,53 @@ label Night3_QuestioningEnd:
         "..."
         #possible shock sfx
         # possible zoom effect in future?
-
         m "What is that?!" # add yell here. 
         show Emil grim
         e "...Huh?" # add yell here
         "We both stood in shock for a second. Neither of us could believe our eyes."
+        hide Emil with fade
         "The singing continued on in the background, but it was an afterthought in my mind right now."
+        jump CordulaFound
 
+label CordulaFound:
+    "Emil snapped out of his trance suddenly."
+    show Emil grim
+    e "I have to get out of here. I can't stay any longer."
+    hide Emil with vpunch
+    "He rushed past me. His eyes looked extremely out of focus."
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    scene Forest_Night with vpunch
+    "I tried to follow after him, but I quickly lost him in the trees."
+    "I called out for him for a couple of minutes, while still continuing down the path."
+    "Soon, I took a break and rested against a tree."
+    "I had been running around for quite a while, so I was out of breath."
+    "I put my lantern down on the side of the tree."
+    "When I did so, something caught my eye."
+    # surprise sfx?
+    "I saw Emil's apron, covered in blood."
+    "I quickly grabbed my lantern and went back to calling for him, this time more frantically."
+    "I wore myself out quickly, so I decided to run back towards the town for help."
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    scene Stalls_Night with vpunch
+    "Once I made my way to the town, I immediately ran into a familiar face."
+    show Siofra with vpunch
+    "I grabbed onto Siofra's arm desperately. I was still out of breath so it took me a second to speak up."
+    m "-Help, it's Emil a-and Cordula."
+    "My voice shook as I spoke."
+    "Siofra gave me a curious look."
+    s "Why don't you just use the marbles?"
+    "She said that as if it was an obvious solution, but I had no idea what she meant."
+    m "What?!"
+    show Siofra open
+    s "The marbles. Why don't you roll them?"
+    hide Siofra
+    "Again, she spoke as if this was the best possible solution."
+    "It stunned me into silence."
+    m "..."
+    "I almost ran away from her, but I considered her words for a second."
+    "She seemed very confident in her answer, she couldn't of been joking."
+    "I had no real clue of where to go from here. Why shouldn't I listen to her."
+    "It felt like I was in a pit with no escape, and her voice was the only thing currently grounding me."
+    "With that thought in mind. I took out the bag of marbles and rolled one on the ground."
 
-    #Outline for rest of Nixie loop 1
-    # meet up with emil/ no cordula. go to ask around town. 
-    # person tells them they heard her say something about going to the lake. 
-    # go to lake see hints of cordula. 
 return
