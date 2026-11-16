@@ -1135,6 +1135,16 @@ if Lake:
     jump Night3_Questioning
 
 else:
+    label Noises_Night3:
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    scene Fountain_Night with fade 
+    show screen day_notify("Night 3", icon="images/Moon.png")
+    # have cordula show up after eufrid is there. idk why 
+    #notes for this: go to bakery at night. Give players option to click around again (he's not there). go to town and question people after (have walaram be there). 
+    # cordula and eufrid end up going to field. 
+    # in field hear wolf noises./ see outline(?) gnawing noises (?)
+    # see emil apron or something that connects thing to emil missing. (think of how graphic you want this game be. Would a head/body part be too graphic?) does that make sense with the roggenwhatever
+
     "Nothing for now LOL"
     return
 
@@ -1274,5 +1284,9 @@ label CordulaFound:
     "I had no real clue of where to go from here. Why shouldn't I listen to her."
     "It felt like I was in a pit with no escape, and her voice was the only thing currently grounding me."
     "With that thought in mind. I took out the bag of marbles and rolled one on the ground."
-
+    scene black
+    "End of Day 3."
+    #maybe prompt players with an option here?
+    # when loop starts again, eufrid now runs into Cordula and Emil on the way to the festival. Possibly have her run into Walaram first? or have walaram appear after seeing Cordula and Emil
+    # have eufrid see siofra. siofra = vagueposting queen. doesn't seem to necessarily know whats up with eufrid. 
 return
