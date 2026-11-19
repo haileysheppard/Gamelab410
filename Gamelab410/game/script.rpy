@@ -181,7 +181,7 @@ label town:
     "The Mid-Autumn Festival was a yearly event that took place over the course of three days. It was full of local foods and fun."
     "On the final day, there is a large dance that involves both the townsfolk and any visitors. That was what made the final day the most popular."
 
-    m "And with that preparations for tomorrow are complete!"
+    m "And with that preparations for tomorrow are complete!" (cb_mood="yell")
     "I had just finished up all my prep work for the festival. This year I was helping my parents with their stall for the festival."
     "I normally just had a minor vending role but this year they let me participate in the whole set-up. I felt a bit nervous, but was ready for this new role."
     m "Now that I have some free time I might as well wander around for a bit."
@@ -241,7 +241,7 @@ c "Again, at least you will be busy. You won't just be standing around all day w
 m "I suppose that you could look at it that way."
 m "Either way, I have a lot to think about."
 "I started to leave."
-c "See you later tonight!"
+c "See you later tonight!" (cb_mood="yell")
 hide Cordula with dissolve
 
 jump town_menu
@@ -307,7 +307,7 @@ m "No, I spent most of the day working. I didn't have time to see anything inter
 show Walaram concern
 w "Hmm, I see."
 show Walaram question
-w "Well then, I'll be off!"
+w "Well then, I'll be off!" (cb_mood="yell")
 hide Walaram with dissolve
 "He left with haste, leaving me alone once again."
 
@@ -367,11 +367,11 @@ label all_viewed:
             show Emil smirk
             e "I guess that makes sense."
             m "Well, I guess I should get a move on. Wouldn't want to distract you."
-            e "Don't worry about it! It was nice to see you!"
+            e "Don't worry about it! It was nice to see you!" (cb_mood="yell")
 
         "None of your business":
             show Emil grim
-            e "What do you mean none of my business?!"
+            e "What do you mean none of my business?!" (cb_mood="yell")
             m "I don't think your boss would agree with that."
             e "That's not the point right now. Stop messing around."
             m "I was just wandering around. Don't be so dramatic."
@@ -388,7 +388,7 @@ label all_viewed:
 
 
 label after_chat:
-    m "Bye! See you tonight!"
+    m "Bye! See you tonight!" (cb_mood="yell")
     hide Emil with fade
     jump town_menu
 
@@ -432,7 +432,7 @@ c "So, did anything interesting happen to either of you today?"
 hide Cordula
 hide Emil
 show drunk
-v "'Tis all true you know!"
+v "'Tis all true you know!" (cb_mood="yell")
 "The man was slurring his words and was flailing about, he was probably just a visiting drunk."
 v "I know what I saw. There was most definitely something, something demonic, or what not attacking that woman."
 "At this I perked up, maybe there was some merit to this man's rambling."
@@ -533,7 +533,7 @@ menu:
             m "No, sorry I just overheard some villagers discussing it."
             show Walaram concern
             w "I see. Well, I'm off to do some investigating of my own."
-            w "Thanks for the information! You've been a big help!"
+            w "Thanks for the information! You've been a big help!" (cb_mood="yell")
             hide Walaram with fade
 
         else:
@@ -543,7 +543,7 @@ menu:
             show Walaram surprised
             w "Interesting... Do you happen to know the name of the kid?"
             m "No, sorry I just overheard some kids talking about it."
-            w "Well, thanks anyway! You've been a big help!"
+            w "Well, thanks anyway! You've been a big help!" (cb_mood="yell")
             hide Walaram with fade
 
         "With that parting thanks Walaram ran off."
@@ -587,7 +587,7 @@ show Emil smirk
 show Cordula surprised
 c "Eufrid only arrived a couple of minutes ago. We have not had too much time to talk."
 "Emil again tried to act as though he was not listening in on us."
-e "I see, well now that I am here let us truly begin!"
+e "I see, well now that I am here let us truly begin!" (cb_mood="yell")
 e "I am sure you both had as exciting days as myself. I must have made a hundred loaves of bread."
 "Emil wiped non-existent sweat off his brow."
 c "I made quite a fair bit of coin today. It seems the novelty of the harmonica is not lost on the tourists."
@@ -925,7 +925,7 @@ menu:
     "Checked the Stall Ledger":
         $Ledger = True
         "I pulled out the ledger from today and reviewed how much we sold."
-        "Apparently our bestselling product today was hairpins. I knew something like that would be a success!"
+        "Apparently our bestselling product today was hairpins. I knew something like that would be a success!" 
         m "{i}My father originally didn't want to see something targeted towards women but I convinced him that the market was large enough.{/i}"
         m "{i}I'm happy I was proven correct.{/i}" 
         jump Night2
@@ -1022,7 +1022,7 @@ show Cordula open
 c "What is it?"
 "I opened the bag and Cordula looked inside."
 show Emil happy
-e "Wait, let me get a look too!" 
+e "Wait, let me get a look too!" (cb_mood="yell")
 "..."
 show Emil sad
 e "Huh. So she just gave you a bag of marbles?"
@@ -1035,7 +1035,7 @@ e "What was her name?"
 m "Siofra. I think it's a foreign name."
 "Emil took a step back."
 show Emil grim with vpunch
-e "That's that weird, scary-looking lady, right?!"
+e "That's that weird, scary-looking lady, right?!" (cb_mood="yell")
 show Cordula frown
 c "No need to yell."
 "Cordula glared at Emil."
@@ -1047,7 +1047,7 @@ e "I heard rumors about that lady. I heard she came here just to curse this town
 show Cordula surprised
 c "And where did you hear that from?"
 e "... The tavern."
-m "That was just some local drunk's ravings! He probably just doesn't like outsiders!"
+m "That was just some local drunk's ravings! He probably just doesn't like outsiders!" (cb_mood="yell")
 show Emil grim
 e "That could be true... But still it's a worrying rumor right?"
 show Cordula open
@@ -1069,7 +1069,7 @@ show screen day_notify("End of Night 2", icon="images/Moon.png")
 "..."
 $ renpy.notify ("Start of Day 3")
 "I awoke to the sun's rays blazing into my room."
-"I got up in surprise. I overslept!"
+"I got up in surprise. I overslept!" 
 "I hurriedly got ready, throwing my clothes on as fast as possible."
 "I ran out the door and made my way towards the stalls."
 play audio "audio/SFX_footstep_dirt.FLAC"
@@ -1077,7 +1077,7 @@ scene Stalls
 "I was almost there when I heard a voice."
 w "Good morning, Eufrid. What's the rush?"
 show Walaram happy
-m "I can't talk right now, sorry Walaram!"
+m "I can't talk right now, sorry Walaram!" (cb_mood="yell")
 hide Walaram with vpunch
 "I pushed past him with a little more force than I intended."
 w "Woah. I get it."
@@ -1146,11 +1146,12 @@ label EndRumors3:
 
 if Lake:
     label Lake_Night3:
+    stop music fadeout 1.0 # music wasn't stopping before this is just to make sure.
     play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night with fade
     show screen day_notify("Night 3", icon="images/Moon.png")
     show Emil happy with fade
-    e "What took you so long? I've been here forever!"
+    e "What took you so long? I've been here forever!" (cb_mood="yell")
     m "I was working."
     "I didn't have the energy to play along with Emil tonight."
     m "Cordula's not here yet? I thought she was ending early because of the show."
@@ -1170,6 +1171,7 @@ if Lake:
 
 else:
     label Noises_Night3:
+    stop music fadeout 1.0
     play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night with fade 
     show screen day_notify("Night 3", icon="images/Moon.png")
@@ -1301,7 +1303,7 @@ menu:
         "He got his notebook back out as he asked. Typical."
         m "We haven't seen Emil at all tonight. I was wondering if you had seen him at all."
         show Walaram happy with vpunch
-        w "Well, tonight is your lucky night!"
+        w "Well, tonight is your lucky night!" (cb_mood="yell")
         w "I actually ran into him earlier today."
         m "Do you have any idea where he might be right now?"
         show Walaram surprised
@@ -1322,7 +1324,7 @@ menu:
         m "Sorry, but we have to run. See you later."
         hide Cordula 
         hide Walaram
-        w "Wait! What are you two up to!"
+        w "Wait! What are you two up to!"(cb_mood="yell")
         "We both ignored Walaram and ran towards the field with great haste."
         jump EndSearch_Night3
    
@@ -1345,9 +1347,9 @@ label EndSearch_Night3:
     "The only noises that could be heard were our breaths and crickets chirping."
     "Cordula and I caught our breaths before we started to call out for Emil."
     show Cordula open with vpunch
-    c "Emil!"
+    c "Emil!" (cb_mood="yell")
     show Cordula open with vpunch
-    c "Are you out here?!"
+    c "Are you out here?!" (cb_mood="yell")
     hide Cordula
     "While Cordula called out I searched through the crops."
     "After a couple minutes of searching I found something."
@@ -1355,7 +1357,7 @@ label EndSearch_Night3:
     "I froze in my tracks and called for Cordula."
     "I quickly realized that I hadn't heard Cordula for the last couple of minutes."
     "I turned around, and saw that she was gone."
-    m "Cordula? Where did you go?!" with vpunch
+    m "Cordula? Where did you go?!" with vpunch (cb_mood="yell")
     # growl go here
     "In the distance, I heard a growling sound."
     "I saw something rustling within the crops and made a run for it."
@@ -1400,7 +1402,7 @@ menu:
         $ Drunk = True
         show drunk with vpunch
         "A man shoved himself into me. I looked up to see the man I heard the other day."
-        v "Excuse you!"
+        v "Excuse you!" (cb_mood="yell")
         "The man slurred his words. He seemed quite intoxicated."
         "I internally debated even trying to talk to him, but I was too worried about Cordula to avoid it."
         "I bowed towards the man."
@@ -1465,7 +1467,7 @@ label Night3_QuestioningEnd:
         "..."
         #possible shock sfx
         # possible zoom effect in future?
-        m "What is that?!" # add yell here. 
+        m "What is that?!" (cb_mood="yell")
         show Emil grim
         e "...Huh?" # add yell here
         "We both stood in shock for a second. Neither of us could believe our eyes."
@@ -1504,7 +1506,7 @@ label EndOfDay3:
     "Siofra gave me a curious look."
     s "Why don't you just use the marbles?"
     "She said that as if it was an obvious solution, but I had no idea what she meant."
-    m "What?!"
+    m "What?!" (cb_mood="yell")
     show Siofra open
     s "The marbles. Why don't you roll them?"
     hide Siofra
