@@ -39,12 +39,22 @@ define ow = Character ("Old Woman", callback=make_blips({
     "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
 }))
 
+define om = Character ("Old Man", callback=make_blips({
+    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
+    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+}))
+
 define t = Character ("Visitor", callback=make_blips({
     "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
     "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
 }))
 
 define yw = Character ("Young Woman", callback=make_blips({
+    "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
+    "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
+}))
+
+define wm = Character ("Watchman", callback=make_blips({
     "talk": "audio/SFX_Vox_Eufrid_Talk_P01.FLAC",
     "yell": "audio/SFX_Vox_Eufrid_Yell_P01.FLAC"
 }))
@@ -69,6 +79,7 @@ image Walaram concern  = "WalNeutral.png"
 
 image drunk = "images/DrunkMan.png"
 image bakery1 = "images/BakeryFinal.png"
+image Bakery_Night = "images/BakeryNight.png"
 image nothing = "images/Blank.jpg"
 image town = "images/Stalls2.png"
 image start = "images/PlaceholderStart.png"
@@ -79,8 +90,10 @@ image Stalls_Night = "images/Stalls1.png"
 image Lake = "images/Lake1.png"
 image Forest = "images/Forest.png"
 image Forest_Night = "images/Forest2.png"
+image Field = "images/Field.png"
+image Field_Night = "images/Field_Night.png"
 
-define audio.towntune = "audio/MX_Town_draft1.ogg"
+define audio.towntune = "audio/MX_Town_loop.OGG"
 define audio.festivaltune = "audio/MX_Festival_Draft1.mp3"
 
 default visited = set()
@@ -98,6 +111,7 @@ default Second = False
 default Lake2 = False
 default Noises2 = False
 default investigated2 = set()
+default investigated3 = set()
 default Lake3 = False
 default Noises3 = False
 default mayor = False
@@ -105,12 +119,29 @@ default cat = False
 default youngwoman = False
 default Drunk = False
 default EmilDay3 = False
+default Search_Bakery = False
+default Search_Town = False
+default oldCouple = False
+default Watchman = False
+default WalaramSearch = False
+# SCREENS 
+
+screen Bakery_Night():
+    imagemap:
+        ground "images/BakeryNight.png"
+        hotspot (953, 589, 190, 263) action Return ("Candles") tooltip "Candles"
+        hotspot (1682, 153, 237, 850) action Return ("Doorway") tooltip "Doorway"
+        hotspot (0, 30, 963, 813) action Return ("BakedGoods") tooltip "Baked Goods"
+    
+    $ tooltip = GetTooltip()
+    if tooltip:
+        text "[tooltip]" xalign 0.5 yalign 0.75
 
 screen Lake_Cordula():
     imagemap:
-        ground "images/LakePLACEHOLDER.jpg"
-        hotspot (1474, 502, 325, 203) action Return ("Cordula") tooltip "?"
-        hotspot (4, 371, 530, 181) action Return("Fence2") tooltip "Fence"
+        ground "images/Lake_Cordula.png"
+        hotspot (870, 567, 422, 173) action Return ("Cordula") tooltip "?"
+        hotspot (3, 274, 910, 366) action Return("Fence2") tooltip "Fence"
         hotspot (646, 26, 1245, 428) action Return ("Forest2") tooltip "Forest"
 
     $ tooltip = GetTooltip()
@@ -129,6 +160,7 @@ screen forest_path():
     if tooltip:
         text "[tooltip]" xalign 0.5 yalign 0.75
 
+# START OF GAME
 label start:
     "Freedom and Life are earned by those alone who conquer them each day anew."
     "To live is to keep moving forward, no matter what."
@@ -481,7 +513,7 @@ menu:
 "The rest of the festival went off with little fanfare. We ended up making a record first-day sale."
 "All the day-stalls around me were preparing to close, so I started to do the same."
 "As I put the stock away I heard a voice speak up."
-w "Hello Eufrid. How are you doing on this dandy night?"
+w "How do you do Eufrid. How are you doing on this dandy night?"
 "I recognized the voice instantly. Walaram. I pulled my head out from under the stall table."
 show Walaram happy
 m "I'm doing just fine. To what do I owe the pleasure?"
@@ -643,13 +675,14 @@ label lake_loop:
         
     elif spot == "Glow":
         "... What is that in the distance. I didn't see it a second ago." 
-        # add scary singing here. 
+        play music "audio/VO_Siren_01.OGG" fadein 1.0
         show Cordula surprised
         c "Do you two hear that?"
         "A faint singing could be heard coming from the lake. I was unable to parse out what exactly was being sung."
         show Cordula frown
         "Emil tried to speak but Cordula shushed him before he could get out what he wanted to say."
         "We all stayed quiet, listening to the singing. After a couple of minutes it faded, and with that the glow also faded."
+        stop music fadeout 1.0
         hide Cordula with dissolve
 
     $ investigated.add(spot)
@@ -1042,7 +1075,7 @@ $ renpy.notify ("Start of Day 3")
 play audio "audio/SFX_footstep_dirt.FLAC"
 scene Stalls
 "I was almost there when I heard a voice."
-w "Hello, Eufrid. What's the rush?"
+w "Good morning, Eufrid. What's the rush?"
 show Walaram happy
 m "I can't talk right now, sorry Walaram!"
 hide Walaram with vpunch
@@ -1108,6 +1141,7 @@ label EndRumors3:
     scene Stalls_Night with fade
     "I completed the rest of the day with only a few mistakes."
     "Once I was free from work I made my way to the fountain."
+    stop music fadeout 1.0
     "I hoped the rest of the night would be uneventful. I was exhausted from work."
 
 if Lake:
@@ -1139,14 +1173,209 @@ else:
     play audio "audio/SFX_footstep_dirt.FLAC"
     scene Fountain_Night with fade 
     show screen day_notify("Night 3", icon="images/Moon.png")
-    # have cordula show up after eufrid is there. idk why 
-    #notes for this: go to bakery at night. Give players option to click around again (he's not there). go to town and question people after (have walaram be there). 
-    # cordula and eufrid end up going to field. 
-    # in field hear wolf noises./ see outline(?) gnawing noises (?)
-    # see emil apron or something that connects thing to emil missing. (think of how graphic you want this game be. Would a head/body part be too graphic?) does that make sense with the roggenwhatever
+    "The fountain area was almost fully empty when I arrived."
+    "The only people in the area were an older couple who conversing in hushed whispers."
+    "I sat on the edge of the fountain, waiting for Emil and Cordula to show."
+    "I started to close my eyes when I felt a tap upon my shoulder."
+    show Cordula happy with fade
+    "I turned to see Cordula standing in front of me."
+    c "Is Emil still not here? I figured I'd be the last one here."
+    show Cordula frown
+    c "Someone offered to buy me a drink at the tavern after my performance so I figured I'd be a little behind everyone else."
+    m "I see, still I wonder why Emil isn't here yet." # kinda weird wording
+    "I looked towards a clock posted above the door of one the of shops in the area."
+    "It was already 9:30. Where could he be?"
+    m "Maybe he's not showing tonight?"
+    show Cordula open
+    c "No matter how callous he usually is, he would of told one of us in advance."
+    m "I guess you're right..."
+    hide Cordula
+    "We spoke for a couple more minutes, debating where he could be."
+    "We soon decided that we better search for him." #maybe change this to actual convo?
+    c "Let's search together. Wouldn't want one of us to find him then have to search for the other."
+    m "True..."
 
-    "Nothing for now LOL"
-    return
+label Search_Night3:
+
+menu:
+    "Where should we search?"
+
+    "Search the Bakery" if not Search_Bakery:
+        $ Search_Bakery = True
+        jump Search_Bakery
+
+    "Search town" if not Search_Town:
+        $ Search_Town = True
+        jump Search_Town
+
+
+label Search_Bakery:
+    play audio "audio/SFX_footstep_dirt.FLAC"
+    scene Bakery_Night with fade
+
+label Search_Bakery_loop:
+    call screen Bakery_Night
+    $ spot = _return
+
+    if spot == "BakedGoods":
+        "It's too dark to make out anything on the shelf."
+
+    elif spot == "Doorway":
+        "I glanced inside the doorway. Inside it was pitch black."
+        "I called out for Emil but didn't get a response."
+
+    elif spot == "Candles":
+        "The candles were the only thing lighting up the room."
+        "Even with that light, it was still very difficult to see."
+
+    $ investigated3.add(spot)
+
+    if len(investigated3) == 3:
+        show Cordula frown
+        c "It doesn't seem like Emil is here."
+        hide Cordula
+        jump Search_Night3
+
+    jump Search_Bakery_loop
+
+label Search_Town:
+    scene Stalls_Night
+    "We ending up walking towards the stalls."
+    "There were still a few stragglers meandering about, so we started to ask them about Emil."
+
+label Night3_Questioning2:
+
+menu:
+    "Who should I talk to?"
+
+    "Older couple" if not oldCouple:
+        $oldCouple = True
+        "We walked up to an older couple. I vaguely recognized them."
+        "They had lived here as long as I had been alive. Or at least I assumed as such."
+        show Cordula open
+        c "Have you two seen Emil?"
+        "Cordula seemed quite friendly with them. Maybe they were frequent watchers of her performances?"
+        ow "I haven't. Have you dearie?"
+        "The woman turned towards her husband."
+        om "I bought some bread from the lad yesterday, remember?"
+        ow "Oh yes. Sorry dear."
+        show Cordula frown
+        c "So you haven't seen him today? Only yesterday?"
+        om "I guess that's right."
+        c "Well, it was nice talking to you anyway."
+        hide Cordula
+        "We didn't get any useful information out of the couple."
+        jump Night3_Questioning2
+
+    "Watchman" if not Watchman:
+        $Watchman = True
+        "One of the night watchmen was standing near an empty stall."
+        "I didn't recognize him. Maybe he was hired just for the festival season?"
+        show Cordula happy
+        c "Good evening sir. Would it be alright if I asked you a question?"
+        wm "You already did, but that's fine. Ask away."
+        show Cordula open
+        c "Did you happen to see a man wearing a blue shirt and a brown apron?"
+        wm "I don't believe I have."
+        c "I see, well sorry for taking time out of your day."
+        hide Cordula
+        "Cordula bowed and then came back to my side."
+        show Cordula frown
+        c "I thought for sure he would know something."
+        c "Isn't it his job to watch over people..."
+        m "Yeah..."
+        hide Cordula
+
+        jump Night3_Questioning2
+
+    "Walaram" if not WalaramSearch:
+        $WalaramSearch = True
+        "I saw Walaram in the distance writing something down in his notebook."
+        "Once I got close he swiftly looked up. Almost bumping his head into me in the process."
+        show Walaram happy
+        w "How do you do this evening Eufrid?"
+        m "I'm actually in quite a rush right now."
+        show Walaram concern
+        w "Oh, I see. What's wrong?"
+        show Walaram question
+        "He got his notebook back out as he asked. Typical."
+        m "We haven't seen Emil at all tonight. I was wondering if you had seen him at all."
+        show Walaram happy with vpunch
+        w "Well, tonight is your lucky night!"
+        w "I actually ran into him earlier today."
+        m "Do you have any idea where he might be right now?"
+        show Walaram surprised
+        w "I was just getting to that, hold your horses."
+        w "Just a while ago he rushed past me mumbling something about a field."
+        w "He seemed to be in a strange mood so I tried to get his attention..."
+        show Walaram concern
+        w "But sadly, he ignored me."
+        hide Walaram
+        show Cordula open
+        "Cordula gently pulled me aside."
+        c "He must've went to investigate that field we heard about."
+        show Cordula frown
+        c "Why would he try to do it alone though..."
+        show Cordula frown at left with move
+        show Walaram surprised at right with move
+        w "What are you two whispering about? Right in front of my face no less."
+        m "Sorry, but we have to run. See you later."
+        hide Cordula 
+        hide Walaram
+        w "Wait! What are you two up to!"
+        "We both ignored Walaram and ran towards the field with great haste."
+        jump EndSearch_Night3
+   
+label EndSearch_Night3:
+    scene Stalls_Night with fade
+    "We rushed through the stalls. Not even stopping to catch our breath."
+    "We were both thinking the same thing, {i} why would Emil do this. {/i}"
+    play audio "audio/SFX_footstep_dirt.flac"
+    scene Forest_Night with fade
+    "Eventually, we made it to the forest."
+    "The farm was located just past it. We were almost there!"
+    show Cordula frown with vpunch
+    c "Just a little further..."
+    "Cordula was very much out of breath. She wasn't used to getting this much exercise."
+    m "Yeah..."
+    hide Cordula with fade
+    "We continued to push forward until we eventually made it to the field."
+    scene Field_Night
+    "It was eerily quiet in the field."
+    "The only noises that could be heard were our breaths and crickets chirping."
+    "Cordula and I caught our breaths before we started to call out for Emil."
+    show Cordula open with vpunch
+    c "Emil!"
+    show Cordula open with vpunch
+    c "Are you out here?!"
+    hide Cordula
+    "While Cordula called out I searched through the crops."
+    "After a couple minutes of searching I found something."
+    "It was a piece of brown cloth, covered in blood." with vpunch
+    "I froze in my tracks and called for Cordula."
+    "I quickly realized that I hadn't heard Cordula for the last couple of minutes."
+    "I turned around, and saw that she was gone."
+    m "Cordula? Where did you go?!" with vpunch
+    # growl go here
+    "In the distance, I heard a growling sound."
+    "I saw something rustling within the crops and made a run for it."
+    m "Cordula?! That wasn't you was it?" with vpunch
+    # add squelsh sound here(?)
+    "I felt something beneath my feet as I ran."
+    "I paused and looked down to see a pool of red."
+    "To the left of the pool, sat a torn blue bandana."
+    m "..." with vpunch
+    "I had to keep moving forward. I needed to leave as soon as possible."
+    play audio "audio/SFX_footstep_dirt.flac"
+    scene Forest_Night
+    "I continued down the path we had came. Eventually reaching the forest once again."
+    "I ran, and I ran, and I ran. Refusing to look back."
+    "I could still hear the growling in my ears."
+    "I couldn't tell if it was real or I was just hearing things."
+    "It sounded close but also felt so far away."
+    jump EndOfDay3
+    
+
 
 label Night3_Questioning:
     if youngwoman and Drunk and EmilDay3:
@@ -1218,8 +1447,8 @@ label Night3_QuestioningEnd:
     "We soon arrived at the lake."
     play audio "audio/SFX_footstep_dirt.FLAC"
     scene Lake
-    # add singing here eventually. 
     "When we arrived I could hear a voice in the distance."
+    play music "audio/VO_Siren_01.OGG" fadein 1.0
     "It sounded exactly like the singing we heard the other day."
     "I started to look for the voice."
     show screen day_notify("Night 3 Investigation", icon="images/Moon.png")
@@ -1242,6 +1471,7 @@ label Night3_QuestioningEnd:
         "We both stood in shock for a second. Neither of us could believe our eyes."
         hide Emil with fade
         "The singing continued on in the background, but it was an afterthought in my mind right now."
+        stop music fadeout 1.0
         jump CordulaFound
 
 label CordulaFound:
@@ -1263,6 +1493,8 @@ label CordulaFound:
     "I quickly grabbed my lantern and went back to calling for him, this time more frantically."
     "I wore myself out quickly, so I decided to run back towards the town for help."
     play audio "audio/SFX_footstep_dirt.FLAC"
+
+label EndOfDay3:
     scene Stalls_Night with vpunch
     "Once I made my way to the town, I immediately ran into a familiar face."
     show Siofra with vpunch
@@ -1286,6 +1518,8 @@ label CordulaFound:
     "With that thought in mind. I took out the bag of marbles and rolled one on the ground."
     scene black
     "End of Day 3."
+    "..."
+    "Start of Day x" #CHEESY ASF
     #maybe prompt players with an option here?
     # when loop starts again, eufrid now runs into Cordula and Emil on the way to the festival. Possibly have her run into Walaram first? or have walaram appear after seeing Cordula and Emil
     # have eufrid see siofra. siofra = vagueposting queen. doesn't seem to necessarily know whats up with eufrid. 
