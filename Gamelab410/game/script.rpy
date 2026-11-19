@@ -88,6 +88,7 @@ image Fountain_Night = "images/Fountain1.png"
 image Stalls = "images/Stalls2.png"
 image Stalls_Night = "images/Stalls1.png"
 image Lake = "images/Lake1.png"
+image Lake_Cordula = "images/Lake_Cordula.png"
 image Forest = "images/Forest.png"
 image Forest_Night = "images/Forest2.png"
 image Field = "images/Field.png"
@@ -95,6 +96,7 @@ image Field_Night = "images/Field_Night.png"
 
 define audio.towntune = "audio/MX_Town_loop.OGG"
 define audio.festivaltune = "audio/MX_Festival_Draft1.mp3"
+define audio.sirensong = "audio/VO_Siren_01.ogg"
 
 default visited = set()
 default investigated = set()
@@ -675,7 +677,7 @@ label lake_loop:
         
     elif spot == "Glow":
         "... What is that in the distance. I didn't see it a second ago." 
-        play music "audio/VO_Siren_01.OGG" fadein 1.0
+        play music sirensong fadein 1.0
         show Cordula surprised
         c "Do you two hear that?"
         "A faint singing could be heard coming from the lake. I was unable to parse out what exactly was being sung."
@@ -1067,7 +1069,7 @@ play audio "audio/SFX_footstep_dirt.FLAC"
 scene black
 show screen day_notify("End of Night 2", icon="images/Moon.png")
 "..."
-$ renpy.notify ("Start of Day 3")
+show screen day_notify("Start of Day 3")
 "I awoke to the sun's rays blazing into my room."
 "I got up in surprise. I overslept!" 
 "I hurriedly got ready, throwing my clothes on as fast as possible."
@@ -1083,7 +1085,7 @@ hide Walaram with vpunch
 w "Woah. I get it."
 "By the time he spoke up I was already far past him."
 "I reached my stall, fully out of breath and got prepared for the day."
-$ renpy.notify ("Festival Day 3")
+show screen day_notify("Festival Day 3")
 play music festivaltune fadein 1.0
 "I started the day. No one pointed out my disheveled appearence, so maybe it wasn't as bad as I thought."
 "I served a large variety of customers, some were people I saw everyday and others were people I had never seen in my life."
@@ -1332,7 +1334,7 @@ label EndSearch_Night3:
     scene Stalls_Night with fade
     "We rushed through the stalls. Not even stopping to catch our breath."
     "We were both thinking the same thing, {i} why would Emil do this. {/i}"
-    play audio "audio/SFX_footstep_dirt.flac"
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Forest_Night with fade
     "Eventually, we made it to the forest."
     "The farm was located just past it. We were almost there!"
@@ -1357,7 +1359,7 @@ label EndSearch_Night3:
     "I froze in my tracks and called for Cordula."
     "I quickly realized that I hadn't heard Cordula for the last couple of minutes."
     "I turned around, and saw that she was gone."
-    m "Cordula? Where did you go?!" with vpunch (cb_mood="yell")
+    m "Cordula? Where did you go?!" (cb_mood="yell") with vpunch
     # growl go here
     "In the distance, I heard a growling sound."
     "I saw something rustling within the crops and made a run for it."
@@ -1368,7 +1370,7 @@ label EndSearch_Night3:
     "To the left of the pool, sat a torn blue bandana."
     m "..." with vpunch
     "I had to keep moving forward. I needed to leave as soon as possible."
-    play audio "audio/SFX_footstep_dirt.flac"
+    play audio "audio/SFX_footstep_dirt.FLAC"
     scene Forest_Night
     "I continued down the path we had came. Eventually reaching the forest once again."
     "I ran, and I ran, and I ran. Refusing to look back."
@@ -1448,9 +1450,9 @@ label Night3_QuestioningEnd:
     "His palms were extremely sweaty."
     "We soon arrived at the lake."
     play audio "audio/SFX_footstep_dirt.FLAC"
-    scene Lake
+    scene Lake_Cordula
     "When we arrived I could hear a voice in the distance."
-    play music "audio/VO_Siren_01.OGG" fadein 1.0
+    play music sirensong fadein 1.0
     "It sounded exactly like the singing we heard the other day."
     "I started to look for the voice."
     show screen day_notify("Night 3 Investigation", icon="images/Moon.png")
@@ -1467,19 +1469,26 @@ label Night3_QuestioningEnd:
         "..."
         #possible shock sfx
         # possible zoom effect in future?
+        "In the water, I saw some sort of cloth."
+        "It took me a second to realize what it was. I could recognize that outfit anywhere."
         m "What is that?!" (cb_mood="yell")
         show Emil grim
-        e "...Huh?" # add yell here
-        "We both stood in shock for a second. Neither of us could believe our eyes."
+        e "...Huh?" (cb_mood="yell")
         hide Emil with fade
+        "We both came to the same conclusion quickly."
+        "I scanned around the rest of the lake. Looking for more signs of Cordula."
         "The singing continued on in the background, but it was an afterthought in my mind right now."
         stop music fadeout 1.0
         jump CordulaFound
 
 label CordulaFound:
+    stop music fadeout 1.0 # another check to make sure music is actually stopping
     "Emil snapped out of his trance suddenly."
     show Emil grim
     e "I have to get out of here. I can't stay any longer."
+    "He spoke with an almost inhuman voice."
+    "I had never heard him speak in such a way before."
+    "It frightened me a bit."
     hide Emil with vpunch
     "He rushed past me. His eyes looked extremely out of focus."
     play audio "audio/SFX_footstep_dirt.FLAC"
